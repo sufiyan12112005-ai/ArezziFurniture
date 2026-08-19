@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Arezzi Furniture — Order Confirmation Form</title>
+<style>
+  :root{
+    --cream:#F6F1E8;
+    --panel:#FFFFFF;
+    --ink:#2B2420;
+    --ink-soft:#5C5148;
+    --walnut:#6B4226;
+    --walnut-dark:#4A2C18;
+    --gold:#B8894A;
+    --gold-soft:#E8D4B0;
+    --line:#E4DACB;
+    --success:#3F7A4F;
+    --success-bg:#E9F5EC;
+    --error:#B4453A;
+    --error-bg:#FBEAE8;
+    --radius:14px;
+    --radius-sm:8px;
+    --shadow: 0 6px 20px rgba(74,44,24,0.08), 0 1px 3px rgba(74,44,24,0.06);
+    --shadow-lg: 0 20px 50px rgba(74,44,24,0.16);
+    font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  }
+  *,*::before,*::after{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; background:var(--cream); color:var(--ink); max-width:100%; overflow-x:hidden; }
+  body{ padding: 24px 16px 80px; line-height:1.5; -webkit-text-size-adjust:100%; }
+  h1,h2,h3{ font-family: Georgia, 'Times New Roman', serif; margin:0; }
+  .wrap{ max-width: 820px; margin: 0 auto; width:100%; }
+
+  /* Header */
+  .brand{ text-align:center; margin-bottom: 28px; }
+  .brand .mark{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:64px;height:64px;border-radius:50%;
+    background: linear-gradient(135deg, var(--walnut), var(--walnut-dark));
+    color:#F6E9D8; font-family: Georgia, serif; font-size:26px; font-weight:700;
+    margin-bottom:12px; box-shadow: var(--shadow);
+    letter-spacing:1px;
+  }
+  .brand h1{ font-size: clamp(24px, 6vw, 34px); color:var(--walnut-dark); letter-spacing:0.5px; }
+  .brand p{ margin:6px 0 0; color:var(--ink-soft); font-size:14px; letter-spacing:1.5px; text-transform:uppercase; }
+
+  /* ===== Progress tracker (fixed for full-width responsiveness) ===== */
+  .progress-wrap{
+    width:100%; max-width:100%; margin: 22px 0 10px; padding: 0 4px;
+  }
+  .progress-track{
+    position:relative; width:100%; height:28px;
+  }
+  .progress-track .track-bg{
+    position:absolute; top:50%; left:0; right:0; transform: translateY(-50%);
+    height:4px; background: var(--line); border-radius:4px;
+    /* begins/ends at the centre of first/last circle via the steps row's own padding */
+  }
+  .progress-track .track-fill{
+    position:absolute; top:50%; left:0; transform: translateY(-50%);
+    height:4px; background: var(--walnut); border-radius:4px;
+    width:0%; transition: width .35s ease;
+  }
+  .progress-steps{
+    position:relative; display:flex; justify-content:space-between; align-items:center; width:100%;
+  }
+  .progress-step-dot{
+    position:relative; z-index:2; width:22px; height:22px; border-radius:50%;
+    background:#fff; border:2.5px solid var(--line); display:flex; align-items:center; justify-content:center;
+    font-size:10px; font-weight:700; color:var(--ink-soft); flex:0 0 auto; transition: all .25s ease;
+  }
+  .progress-step-dot.done{ background: var(--gold); border-color: var(--gold); color:#fff; }
+  .progress-step-dot.active{ background: var(--walnut); border-color: var(--walnut); color:#fff; box-shadow: 0 0 0 4px rgba(107,66,38,0.15); }
+  .progress-label{ text-align:center; font-size:12px; color:var(--ink-soft); margin: 10px 0 18px; letter-spacing:0.4px; }
+  @media (max-width:400px){
+    .progress-step-dot{ width:18px; height:18px; font-size:9px; }
+  }
+
+  /* Sections/cards */
+  .card{
+    background: var(--panel); border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 22px 20px; margin-bottom: 18px; border:1px solid var(--line);
+    max-width:100%;
+  }
+  .card h2{
+    font-size: 18px; color: var(--walnut-dark); margin-bottom: 4px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .card h2 .num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:26px;height:26px;border-radius:50%; background:var(--gold-soft); color:var(--walnut-dark);
+    font-family: Georgia, serif; font-size:13px; font-weight:700; flex:0 0 auto;
+  }
+  .card .subtext{ font-size:13px; color:var(--ink-soft); margin: 2px 0 16px 36px; }
+
+  .field{ margin-bottom: 16px; max-width:100%; }
+  .field label{
+    display:block; font-size: 13.5px; font-weight:600; color:var(--ink); margin-bottom:6px;
+    overflow-wrap: break-word;
+  }
+  .field label .req{ color: var(--error); margin-left:2px; }
+  .field label .opt{ color: var(--ink-soft); font-weight:400; font-size:12px; margin-left:4px; }
+  .field .hint{ font-size:12px; color:var(--ink-soft); margin-top:5px; }
+  .field .err-msg{ font-size:12.5px; color:var(--error); margin-top:5px; display:none; }
+  .field.invalid .err-msg{ display:block; }
+  .field.invalid input, .field.invalid select, .field.invalid textarea{ border-color: var(--error) !important; background: var(--error-bg); }
+
+  input[type=text], input[type=tel], input[type=email], input[type=number],
+  input[type=date], select, textarea{
+    width:100%; max-width:100%; padding: 12px 13px; font-size:16px; border-radius: var(--radius-sm);
+    border: 1.5px solid var(--line); background:#FFFDF9; color:var(--ink);
+    font-family: inherit; transition: border-color .2s, box-shadow .2s;
+  }
+  select{ overflow-wrap:break-word; }
+  input:read-only{ background:#F1ECE1; color:var(--ink-soft); }
+  input:focus, select:focus, textarea:focus{
+    outline:none; border-color: var(--walnut); box-shadow: 0 0 0 3px rgba(107,66,38,0.14);
+  }
+  textarea{ min-height: 84px; resize: vertical; }
+  .row{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
+  .row3{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap:14px; }
+  @media (max-width: 480px){
+    .row, .row3{ grid-template-columns: 1fr; }
+  }
+
+  /* Furniture type cards */
+  .type-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 6px; }
+  @media (max-width: 480px){ .type-grid{ grid-template-columns: 1fr; } }
+  .type-card{
+    position:relative; border: 2px solid var(--line); border-radius: var(--radius);
+    padding: 18px 12px; text-align:center; cursor:pointer; background:#FFFDF9;
+    transition: all .2s ease; max-width:100%;
+  }
+  .type-card input{ position:absolute; opacity:0; width:0; height:0; }
+  .type-card .icon-box{
+    width:44px; height:44px; margin:0 auto 10px; display:flex; align-items:center; justify-content:center;
+  }
+  .type-card .icon-box svg{
+    width:38px; height:38px; stroke: var(--walnut-dark); fill:none; stroke-width:1.6;
+    stroke-linecap:round; stroke-linejoin:round; transition: stroke .2s ease, transform .2s ease;
+  }
+  .type-card .name{ font-weight:700; color:var(--ink); font-size:15px; }
+  .type-card.selected{ border-color: var(--walnut); background: linear-gradient(180deg,#FFF9EF,#FBF2E2); box-shadow: var(--shadow); }
+  .type-card.selected .name{ color:var(--walnut-dark); }
+  .type-card.selected .icon-box svg{ stroke: var(--gold); transform: scale(1.08); }
+  .type-card:focus-within{ box-shadow: 0 0 0 3px rgba(107,66,38,0.18); }
+
+  /* checkbox / radio native */
+  .check-row{ display:flex; align-items:flex-start; gap:10px; margin-bottom:14px; }
+  .check-row input[type=checkbox]{ width:20px; height:20px; margin-top:2px; flex:0 0 auto; accent-color: var(--walnut); }
+  .check-row label{ font-size:13.5px; color:var(--ink); font-weight:500; }
+
+  .radio-pill-group{ display:flex; flex-wrap:wrap; gap:8px; }
+  .radio-pill{
+    border:1.5px solid var(--line); border-radius: 999px; padding: 9px 16px; font-size:13.5px;
+    cursor:pointer; background:#FFFDF9; color:var(--ink-soft); transition: all .15s;
+  }
+  .radio-pill input{ position:absolute; opacity:0; width:0; height:0; }
+  .radio-pill.selected{ background: var(--walnut); border-color: var(--walnut); color:#fff; font-weight:600; }
+
+  /* Colour swatches */
+  .colour-swatch{
+    display:inline-block; width:14px; height:14px; border-radius:50%; margin-right:8px;
+    border:1px solid rgba(0,0,0,0.15); vertical-align:middle;
+  }
+  .colour-select-wrap{ position:relative; }
+  .colour-preview-row{ display:flex; align-items:center; gap:10px; margin-top:8px; font-size:13px; color:var(--ink-soft); }
+  .colour-preview-row .colour-swatch{ width:18px; height:18px; }
+
+  /* Image upload */
+  .upload-box{
+    border: 2px dashed var(--line); border-radius: var(--radius); padding: 22px 16px; text-align:center;
+    background:#FFFDF9; cursor:pointer; transition: border-color .2s;
+  }
+  .upload-box.dragover{ border-color: var(--walnut); background: #FBF2E2; }
+  .upload-box .upload-icon{ font-size: 28px; }
+  .upload-box p{ margin:8px 0 0; font-size:13.5px; color:var(--ink-soft); }
+  .upload-preview{ margin-top:14px; display:none; max-width:100%; }
+  .upload-preview.show{ display:flex; gap:12px; align-items:center; background:#FBF7EF; border-radius: var(--radius-sm); padding:10px; border:1px solid var(--line); max-width:100%; }
+  .upload-preview img{ width:64px;height:64px; object-fit:cover; border-radius:8px; flex:0 0 auto; border:1px solid var(--line); }
+  .upload-preview .meta{ flex:1; min-width:0; }
+  .upload-preview .meta .fname{ font-size:13px; font-weight:600; word-break:break-all; }
+  .upload-preview .meta .fsize{ font-size:12px; color:var(--ink-soft); }
+  .upload-preview .remove-btn{
+    border:none; background: var(--error-bg); color:var(--error); border-radius:8px; padding:8px 10px;
+    font-size:12px; cursor:pointer; flex:0 0 auto; font-weight:600;
+  }
+
+  /* Summary box */
+  .amount-summary{
+    background: #FBF7EF; border:1px solid var(--gold-soft); border-radius: var(--radius-sm);
+    padding: 14px; margin-top: 8px; font-size: 14px; max-width:100%;
+  }
+  .amount-summary .line{ display:flex; justify-content:space-between; padding: 4px 0; gap:8px; }
+  .amount-summary .line span:last-child{ overflow-wrap:break-word; text-align:right; }
+  .amount-summary .line.total{ font-weight:700; border-top:1px dashed var(--line); margin-top:6px; padding-top:8px; color:var(--walnut-dark); }
+
+  /* Buttons */
+  .submit-bar{ margin-top: 22px; }
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    width:100%; padding: 16px 20px; font-size:16px; font-weight:700; border-radius: var(--radius);
+    border:none; cursor:pointer; transition: transform .1s, box-shadow .2s, opacity .2s;
+    font-family:inherit;
+  }
+  .btn-primary{
+    background: linear-gradient(135deg, var(--walnut), var(--walnut-dark)); color:#FBF2E2; box-shadow: var(--shadow);
+  }
+  .btn-primary:active{ transform: translateY(1px); }
+  .btn-primary:disabled{ opacity:0.6; cursor:not-allowed; }
+  .btn-secondary{
+    background:#fff; color:var(--walnut-dark); border:1.5px solid var(--walnut-dark);
+  }
+  .spinner{
+    width:18px;height:18px;border-radius:50%; border:2.5px solid rgba(255,255,255,0.4); border-top-color:#fff;
+    animation: spin .7s linear infinite; display:none;
+  }
+  .btn-primary.loading .spinner{ display:inline-block; }
+  .btn-primary.loading .btn-text{ opacity:0.85; }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+
+  /* Panels */
+  .panel-overlay{
+    position:fixed; inset:0; background: rgba(43,36,32,0.55); display:none; align-items:center; justify-content:center;
+    padding:20px; z-index:999;
+  }
+  .panel-overlay.show{ display:flex; }
+  .panel{
+    background:#fff; border-radius: var(--radius); max-width: 420px; width:100%; padding: 30px 24px; text-align:center;
+    box-shadow: var(--shadow-lg);
+  }
+  .panel .icon-circle{
+    width:64px;height:64px;border-radius:50%; display:flex; align-items:center; justify-content:center;
+    margin: 0 auto 14px; font-size:30px;
+  }
+  .panel.success .icon-circle{ background: var(--success-bg); color: var(--success); }
+  .panel.error .icon-circle{ background: var(--error-bg); color: var(--error); }
+  .panel h3{ font-size:19px; margin-bottom:8px; }
+  .panel p{ font-size:14px; color: var(--ink-soft); margin: 0 0 6px; }
+  .panel .booking-id{
+    font-family: 'Courier New', monospace; font-size:16px; font-weight:700; color:var(--walnut-dark);
+    background: var(--gold-soft); padding: 8px 12px; border-radius:8px; display:inline-block; margin: 10px 0;
+    letter-spacing:0.5px; word-break:break-all;
+  }
+
+  .sr-only{ position:absolute; width:1px;height:1px; overflow:hidden; clip:rect(0,0,0,0); }
+  a{ color: var(--walnut-dark); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand">
+    <div class="mark">AF</div>
+    <h1>Arezzi Furniture</h1>
+    <p>Customer Order Confirmation Form</p>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-track">
+      <div class="track-bg"></div>
+      <div class="track-fill" id="trackFill"></div>
+      <div class="progress-steps" id="progressSteps"></div>
+    </div>
+  </div>
+  <div class="progress-label" id="progressLabel">Section 1 of 10 — Order Identification</div>
+
+  <form id="bookingForm" novalidate>
+
+    <!-- SECTION 1 -->
+    <section class="card" data-section="1">
+      <h2><span class="num">1</span>Order Identification</h2>
+      <p class="subtext">Basic details for this booking</p>
+
+      <div class="field">
+        <label for="bookingId">Booking ID</label>
+        <input type="text" id="bookingId" name="bookingId" readonly value="Will be generated after submission">
+        <div class="hint">Final ID is generated by the server on successful submission, e.g. ARZ-BKG-20260818-0001</div>
+      </div>
+
+      <div class="field">
+        <label for="dealStatus">Deal Status <span class="req">*</span></label>
+        <select id="dealStatus" name="dealStatus" required>
+          <option value="Confirmed" selected>Confirmed</option>
+          <option value="Advance Received">Advance Received</option>
+          <option value="Fully Paid">Fully Paid</option>
+          <option value="On Hold">On Hold</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="repId">Sales Representative ID <span class="req">*</span></label>
+        <input type="text" id="repId" name="repId" required inputmode="numeric" maxlength="3" placeholder="e.g. 101">
+        <div class="err-msg">Please enter a valid representative ID: 101, 102, 103, or 104.</div>
+      </div>
+
+      <div class="field">
+        <label for="repName">Sales Representative Name</label>
+        <input type="text" id="repName" name="repName" readonly placeholder="Auto-filled from Representative ID">
+      </div>
+
+      <div class="field">
+        <label for="confirmDate">Date of Confirmation <span class="req">*</span></label>
+        <input type="date" id="confirmDate" name="confirmDate" required>
+        <div class="err-msg">Please select a confirmation date.</div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: FURNITURE TYPE -->
+    <section class="card" data-section="2">
+      <h2><span class="num">2</span>Furniture Type</h2>
+      <p class="subtext">Select what the customer is ordering</p>
+
+      <div class="type-grid" id="furnitureTypeGrid">
+        <label class="type-card" data-value="Sofa" data-code="SOF">
+          <input type="radio" name="furnitureType" value="Sofa" required>
+          <span class="icon-box" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><path d="M8 26v-6a4 4 0 0 1 4-4h24a4 4 0 0 1 4 4v6"/><path d="M6 26h36v8a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-8Z"/><path d="M6 26a3 3 0 0 0-3 3v3a2 2 0 0 0 2 2h2"/><path d="M42 26a3 3 0 0 1 3 3v3a2 2 0 0 1-2 2h-2"/><path d="M12 30v6"/><path d="M24 30v6"/><path d="M36 30v6"/></svg>
+          </span>
+          <span class="name">Sofa</span>
+        </label>
+        <label class="type-card" data-value="Bed" data-code="BED">
+          <input type="radio" name="furnitureType" value="Bed">
+          <span class="icon-box" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><path d="M6 40V20a3 3 0 0 1 3-3h6v9"/><path d="M6 30h36v10"/><path d="M15 27h27a3 3 0 0 1 3 3v3H15v-6Z"/><path d="M6 40v-4"/><path d="M42 40v-4"/></svg>
+          </span>
+          <span class="name">Bed</span>
+        </label>
+        <label class="type-card" data-value="Table" data-code="TBL">
+          <input type="radio" name="furnitureType" value="Table">
+          <span class="icon-box" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><rect x="6" y="14" width="36" height="5" rx="1"/><path d="M11 19v15"/><path d="M37 19v15"/></svg>
+          </span>
+          <span class="name">Table</span>
+        </label>
+      </div>
+      <div class="field invalid" id="furnitureTypeErrWrap" style="margin-top:8px; display:none;">
+        <div class="err-msg" style="display:block;">Please select a furniture type.</div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: MODEL -->
+    <section class="card" data-section="3" id="modelSection" style="display:none;">
+      <h2><span class="num">3</span>Model / Product Type</h2>
+      <p class="subtext" id="modelSubtext">Choose the specific model</p>
+
+      <div class="field">
+        <label for="modelSelect">Model <span class="req">*</span></label>
+        <select id="modelSelect" name="modelSelect"></select>
+        <div class="err-msg">Please select a model.</div>
+      </div>
+
+      <div class="field" id="customModelWrap" style="display:none;">
+        <label for="customModel" id="customModelLabel">Enter custom model or description <span class="req">*</span></label>
+        <input type="text" id="customModel" name="customModel">
+        <div class="err-msg">Please describe the custom model.</div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: MATERIAL -->
+    <section class="card" data-section="4" id="materialSection" style="display:none;">
+      <h2><span class="num">4</span>Material / Fabric</h2>
+      <p class="subtext" id="materialSubtext">Choose the fabric or material</p>
+
+      <div class="field">
+        <label for="materialSelect">Material / Fabric <span class="req">*</span></label>
+        <select id="materialSelect" name="materialSelect"></select>
+        <div class="err-msg">Please select a material or fabric.</div>
+      </div>
+
+      <div class="field" id="customMaterialWrap" style="display:none;">
+        <label for="customMaterial" id="customMaterialLabel">Enter custom material details <span class="req">*</span></label>
+        <input type="text" id="customMaterial" name="customMaterial">
+        <div class="err-msg">Please describe the custom material.</div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: SIZE & QUANTITY -->
+    <section class="card" data-section="5">
+      <h2><span class="num">5</span>Size &amp; Quantity</h2>
+      <p class="subtext">Dimensions and quantity of the order</p>
+
+      <!-- Sofa specific -->
+      <div id="sofaSizeFields" style="display:none;">
+        <div class="field">
+          <label for="seatingCapacity">Seating Capacity <span class="req">*</span></label>
+          <select id="seatingCapacity" name="seatingCapacity">
+            <option value="">Select seating capacity</option>
+            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+            <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+            <option value="Custom">Custom</option>
+          </select>
+        </div>
+        <div class="field" id="customSeatingWrap" style="display:none;">
+          <label for="customSeating">Custom Seating Capacity (1–50) <span class="req">*</span></label>
+          <input type="number" id="customSeating" name="customSeating" min="1" max="50" inputmode="numeric">
+          <div class="err-msg">Enter a value between 1 and 50.</div>
+        </div>
+      </div>
+
+      <!-- Bed specific -->
+      <div id="bedSizeFields" style="display:none;">
+        <div class="row">
+          <div class="field">
+            <label for="bedQuantity">Bed Quantity <span class="req">*</span></label>
+            <input type="number" id="bedQuantity" name="bedQuantity" min="1" inputmode="numeric">
+          </div>
+          <div class="field">
+            <label for="bedSize">Bed Size <span class="req">*</span></label>
+            <select id="bedSize" name="bedSize">
+              <option value="">Select size</option>
+              <option>Single</option><option>Double</option><option>Queen</option><option>King</option><option value="Custom">Custom</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table specific -->
+      <div id="tableSizeFields" style="display:none;">
+        <div class="row">
+          <div class="field">
+            <label for="tableQuantity">Table Quantity <span class="req">*</span></label>
+            <input type="number" id="tableQuantity" name="tableQuantity" min="1" inputmode="numeric">
+          </div>
+          <div class="field">
+            <label for="tableSeating">Seating Capacity (if applicable)</label>
+            <input type="number" id="tableSeating" name="tableSeating" min="0" inputmode="numeric">
+          </div>
+        </div>
+      </div>
+
+      <div class="row3">
+        <div class="field">
+          <label for="length">Length <span class="opt">(optional)</span></label>
+          <input type="number" id="length" name="length" min="0" step="0.1" inputmode="decimal">
+        </div>
+        <div class="field">
+          <label for="width">Width <span class="opt">(optional)</span></label>
+          <input type="number" id="width" name="width" min="0" step="0.1" inputmode="decimal">
+        </div>
+        <div class="field">
+          <label for="height">Height <span class="opt">(optional)</span></label>
+          <input type="number" id="height" name="height" min="0" step="0.1" inputmode="decimal">
+        </div>
+      </div>
+      <div class="hint" style="margin:-8px 0 14px;">Optional. Enter measurements only if confirmed.</div>
+
+      <div class="field">
+        <label for="measurementUnit">Measurement Unit <span class="opt" id="unitOptLabel">(optional)</span></label>
+        <select id="measurementUnit" name="measurementUnit">
+          <option value="">Select unit</option>
+          <option value="Feet">Feet</option>
+          <option value="Inches">Inches</option>
+          <option value="Centimetres">Centimetres</option>
+          <option value="Millimetres">Millimetres</option>
+        </select>
+        <div class="err-msg">A measurement unit is required when any dimension is entered.</div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="productQuantity">Product Quantity <span class="req">*</span></label>
+          <input type="number" id="productQuantity" name="productQuantity" min="1" value="1" inputmode="numeric" required>
+        </div>
+        <div class="field">
+          <label for="colourSelect">Colour <span class="req">*</span></label>
+          <select id="colourSelect" name="colourSelect" required></select>
+          <div class="err-msg">Please select a colour.</div>
+          <div class="colour-preview-row" id="colourPreviewRow" style="display:none;">
+            <span class="colour-swatch" id="colourSwatchPreview"></span>
+            <span id="colourSwatchLabel"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field" id="customColourWrap" style="display:none;">
+        <label for="customColour">Enter custom colour name or colour code <span class="req">*</span></label>
+        <input type="text" id="customColour" name="customColour" placeholder="e.g. Sand Beige, #8B4513, Fabric Shade 214">
+        <div class="err-msg">Please enter the custom colour name or code.</div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="finish">Finish</label>
+          <input type="text" id="finish" name="finish" placeholder="e.g. Matte, Glossy">
+        </div>
+        <div class="field">
+          <label for="customizationDetails">Additional Customization</label>
+          <input type="text" id="customizationDetails" name="customizationDetails">
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: CUSTOMER DETAILS -->
+    <section class="card" data-section="6">
+      <h2><span class="num">6</span>Customer Details</h2>
+      <p class="subtext">Contact and delivery information</p>
+
+      <div class="field">
+        <label for="customerName">Customer Full Name <span class="req">*</span></label>
+        <input type="text" id="customerName" name="customerName" required>
+        <div class="err-msg">Please enter the customer's full name.</div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="primaryPhone">Primary Phone Number <span class="req">*</span></label>
+          <input type="tel" id="primaryPhone" name="primaryPhone" required inputmode="tel" placeholder="e.g. +91 9876543210">
+          <div class="err-msg">Enter a valid 10-digit Indian mobile number (optionally with +91).</div>
+        </div>
+        <div class="field">
+          <label for="altPhone">Alternate Phone Number</label>
+          <input type="tel" id="altPhone" name="altPhone" inputmode="tel">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="profession">Customer Profession <span class="req">*</span></label>
+        <select id="profession" name="profession" required>
+          <option value="">Select profession</option>
+          <option>Business</option>
+          <option>Salaried Employee</option>
+          <option>Self-Employed</option>
+          <option>Government Employee</option>
+          <option>Professional</option>
+          <option>Homemaker</option>
+          <option>Retired</option>
+          <option value="Other">Other</option>
+        </select>
+        <div class="err-msg">Please select a profession.</div>
+      </div>
+      <div class="field" id="customProfessionWrap" style="display:none;">
+        <label for="customProfession">Please specify profession <span class="req">*</span></label>
+        <input type="text" id="customProfession" name="customProfession">
+      </div>
+
+      <div class="field">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="optional">
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="district">District <span class="req">*</span></label>
+          <input type="text" id="district" name="district" required placeholder="e.g. Bengaluru Urban">
+        </div>
+        <div class="field">
+          <label for="area">Area / Locality <span class="req">*</span></label>
+          <input type="text" id="area" name="area" required placeholder="e.g. Indiranagar">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="address">Complete Delivery Address <span class="req">*</span></label>
+        <textarea id="address" name="address" required></textarea>
+        <div class="err-msg">Please enter the complete delivery address.</div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="landmark">Landmark</label>
+          <input type="text" id="landmark" name="landmark">
+        </div>
+        <div class="field">
+          <label for="pincode">PIN Code <span class="req">*</span></label>
+          <input type="text" id="pincode" name="pincode" required inputmode="numeric" maxlength="6" placeholder="e.g. 560038">
+          <div class="err-msg">Enter a valid 6-digit PIN code.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: PAYMENT -->
+    <section class="card" data-section="7">
+      <h2><span class="num">7</span>Payment Details</h2>
+      <p class="subtext">Amounts and payment method</p>
+
+      <div class="field">
+        <label for="totalAmount">Total Product Amount (₹) <span class="req">*</span></label>
+        <input type="number" id="totalAmount" name="totalAmount" min="1" step="1" required inputmode="decimal">
+        <div class="err-msg">Enter a total amount greater than zero.</div>
+      </div>
+
+      <div class="field">
+        <label for="advanceAmount">Advance Amount Received (₹) <span class="req">*</span></label>
+        <input type="number" id="advanceAmount" name="advanceAmount" min="0" step="1" required inputmode="decimal">
+        <div class="err-msg">Advance amount cannot be greater than the total amount, and can only be zero when Deal Status is "On Hold".</div>
+      </div>
+
+      <div class="amount-summary">
+        <div class="line"><span>Total Amount</span><span id="displayTotal">₹0.00</span></div>
+        <div class="line"><span>Advance Received</span><span id="displayAdvance">₹0.00</span></div>
+        <div class="line total"><span>Remaining Balance</span><span id="displayRemaining">₹0.00</span></div>
+      </div>
+
+      <div class="field" style="margin-top:16px;">
+        <label for="paymentMethod">Payment Method <span class="req">*</span></label>
+        <select id="paymentMethod" name="paymentMethod" required>
+          <option value="Cash">Cash</option>
+          <option value="UPI">UPI</option>
+          <option value="Bank Transfer">Bank Transfer</option>
+          <option value="Credit Card">Credit Card</option>
+          <option value="Debit Card">Debit Card</option>
+          <option value="Cheque">Cheque</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="field" id="transRefWrap">
+        <label for="transRef">Transaction / Reference Number</label>
+        <input type="text" id="transRef" name="transRef">
+      </div>
+
+      <div class="field">
+        <label for="paymentNotes">Payment Notes</label>
+        <textarea id="paymentNotes" name="paymentNotes"></textarea>
+      </div>
+    </section>
+
+    <!-- SECTION 8: DELIVERY -->
+    <section class="card" data-section="8">
+      <h2><span class="num">8</span>Delivery Details</h2>
+      <p class="subtext">When and how the order will be delivered</p>
+
+      <div class="field">
+        <label for="deliveryDate">Expected Delivery Date <span class="req">*</span></label>
+        <input type="date" id="deliveryDate" name="deliveryDate" required>
+        <div class="err-msg">Delivery date cannot be earlier than the confirmation date.</div>
+      </div>
+
+      <div class="field">
+        <label>Delivery Priority <span class="req">*</span></label>
+        <div class="radio-pill-group" id="deliveryPriorityGroup">
+          <label class="radio-pill" data-value="Normal"><input type="radio" name="deliveryPriority" value="Normal" checked>Normal</label>
+          <label class="radio-pill" data-value="Urgent"><input type="radio" name="deliveryPriority" value="Urgent">Urgent</label>
+          <label class="radio-pill" data-value="Flexible"><input type="radio" name="deliveryPriority" value="Flexible">Flexible</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="deliveryInstructions">Delivery Instructions</label>
+        <textarea id="deliveryInstructions" name="deliveryInstructions"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Installation Required <span class="req">*</span></label>
+        <div class="radio-pill-group" id="installGroup">
+          <label class="radio-pill" data-value="Yes"><input type="radio" name="installationRequired" value="Yes" checked>Yes</label>
+          <label class="radio-pill" data-value="No"><input type="radio" name="installationRequired" value="No">No</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="floorNumber">Floor Number</label>
+          <input type="text" id="floorNumber" name="floorNumber" inputmode="numeric">
+        </div>
+        <div class="field">
+          <label>Lift Available</label>
+          <select id="liftAvailable" name="liftAvailable">
+            <option value="Not Applicable">Not Applicable</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9: RECEIPT UPLOAD -->
+    <section class="card" data-section="9">
+      <h2><span class="num">9</span>Receipt Image Upload</h2>
+      <p class="subtext">Upload the customer's payment receipt <span class="req">*</span></p>
+
+      <div class="upload-box" id="uploadBox" tabindex="0" role="button" aria-label="Upload receipt image">
+        <span class="upload-icon">📎</span>
+        <p><strong>Tap to upload</strong> or drag and drop<br>JPG, JPEG, PNG or WebP — max 5 MB</p>
+        <input type="file" id="receiptInput" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" class="sr-only">
+      </div>
+      <div class="err-msg" id="receiptErr" style="display:none;">Please upload a valid receipt image (JPG, PNG, WebP, max 5MB).</div>
+
+      <div class="upload-preview" id="uploadPreview">
+        <img id="previewImg" alt="Receipt preview">
+        <div class="meta">
+          <div class="fname" id="previewName"></div>
+          <div class="fsize" id="previewSize"></div>
+        </div>
+        <button type="button" class="remove-btn" id="removeReceiptBtn">Remove</button>
+      </div>
+    </section>
+
+    <!-- SECTION 10: NOTES & CONSENT -->
+    <section class="card" data-section="10">
+      <h2><span class="num">10</span>Notes &amp; Consent</h2>
+      <p class="subtext">Final notes before submitting</p>
+
+      <div class="field">
+        <label for="customerRequirements">Customer Requirements</label>
+        <textarea id="customerRequirements" name="customerRequirements"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="internalNotes">Internal Sales Notes</label>
+        <textarea id="internalNotes" name="internalNotes"></textarea>
+      </div>
+
+      <div class="check-row">
+        <input type="checkbox" id="termsConfirmed" name="termsConfirmed" required>
+        <label for="termsConfirmed">The customer has confirmed the product details, amount, and expected delivery date. <span class="req">*</span></label>
+      </div>
+      <div class="check-row">
+        <input type="checkbox" id="dataAccuracy" name="dataAccuracy" required>
+        <label for="dataAccuracy">I confirm that the entered order and customer information is correct. <span class="req">*</span></label>
+      </div>
+    </section>
+
+    <div class="submit-bar">
+      <button type="submit" class="btn btn-primary" id="submitBtn">
+        <span class="spinner"></span>
+        <span class="btn-text">Submit Booking</span>
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- Success Panel -->
+<div class="panel-overlay" id="successOverlay">
+  <div class="panel success">
+    <div class="icon-circle">✓</div>
+    <h3>Booking Confirmed</h3>
+    <p>The order has been recorded successfully.</p>
+    <div class="booking-id" id="successBookingId">ARZ-BKG-...</div>
+    <p style="font-size:12.5px;">Please note this Booking ID for reference.</p>
+    <button type="button" class="btn btn-primary" id="newBookingBtn" style="margin-top:16px;">
+      <span class="btn-text">Start New Booking</span>
+    </button>
+  </div>
+</div>
+
+<!-- Error Panel -->
+<div class="panel-overlay" id="errorOverlay">
+  <div class="panel error">
+    <div class="icon-circle">!</div>
+    <h3>Submission Failed</h3>
+    <p id="errorMessage">Something went wrong while submitting the booking. Please check your connection and try again.</p>
+    <button type="button" class="btn btn-secondary" id="closeErrorBtn" style="margin-top:16px;">Close</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ============ CONFIG ============
+  const APPS_SCRIPT_WEB_APP_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+  const ALLOWED_TYPES = ["image/jpeg","image/png","image/webp"];
+  const MAX_IMAGE_DIMENSION = 1600; // px, for browser-side compression
+
+  // ============ FIXED SALES REPRESENTATIVES ============
+  const SALES_REPRESENTATIVES = {
+    "101": "Akmal",
+    "102": "Zabi",
+    "103": "Suhail",
+    "104": "Sufiyan"
+  };
+
+  // ============ DATA DICTIONARIES ============
+  const SOFA_MODELS = [
+    ["L-Shape Sofa","SOF-LSH"],["Recliner Sofa","SOF-REC"],["Sofa Cum Bed","SOF-SCB"],
+    ["3+2 Sofa Set","SOF-32"],["3+1+1 Sofa Set","SOF-311"],["Lounge Sofa","SOF-LNG"],
+    ["U-Shape Sofa","SOF-USH"],["Maharaja Sofa","SOF-MHJ"],["Wooden Sofa","SOF-WDN"],
+    ["Sectional Sofa","SOF-SEC"],["Chesterfield Sofa","SOF-CHF"],["Modular Sofa","SOF-MOD"],
+    ["Loveseat","SOF-LVS"],["Custom Sofa","SOF-CUS"],["Other","SOF-OTH"]
+  ];
+  const BED_MODELS = [
+    ["Single Bed","BED-SGL"],["Double Bed","BED-DBL"],["Queen Size Bed","BED-QUN"],
+    ["King Size Bed","BED-KNG"],["Hydraulic Storage Bed","BED-HYD"],["Box Storage Bed","BED-BOX"],
+    ["Upholstered Bed","BED-UPH"],["Wooden Bed","BED-WDN"],["Bunk Bed","BED-BNK"],
+    ["Sofa Cum Bed","BED-SCB"],["Custom Bed","BED-CUS"],["Other","BED-OTH"]
+  ];
+  const TABLE_MODELS = [
+    ["Dining Table","TBL-DIN"],["Coffee Table","TBL-COF"],["Centre Table","TBL-CEN"],
+    ["Side Table","TBL-SID"],["Study Table","TBL-STU"],["Office Table","TBL-OFF"],
+    ["Console Table","TBL-CON"],["Dressing Table","TBL-DRS"],["Folding Table","TBL-FLD"],
+    ["Custom Table","TBL-CUS"],["Other","TBL-OTH"]
+  ];
+  const SOFA_FABRICS = [
+    ["Leatherette","FAB-LTH"],["Suede Fabric","FAB-SUE"],["Genuine Leather","FAB-GLT"],
+    ["Microfiber","FAB-MIC"],["Brocade Fabric","FAB-BRO"],["Nylon","FAB-NYL"],
+    ["Velvet","FAB-VEL"],["Jute","FAB-JUT"],["Silk","FAB-SIL"],["Linen","FAB-LIN"],
+    ["Cotton","FAB-COT"],["Polyester","FAB-POL"],["Chenille","FAB-CHE"],["Bouclé","FAB-BOU"],
+    ["Custom Fabric","FAB-CUS"],["Other","FAB-OTH"]
+  ];
+  const BED_MATERIALS = [
+    ["Solid Wood","MAT-BED-SWD"],["Plywood","MAT-BED-PLY"],["Engineered Wood","MAT-BED-ENG"],
+    ["MDF","MAT-BED-MDF"],["Metal","MAT-BED-MTL"],["Upholstered Fabric","MAT-BED-UPH"],
+    ["Leatherette Upholstery","MAT-BED-LTH"],["Genuine Leather Upholstery","MAT-BED-GLT"],
+    ["Custom Material","MAT-BED-CUS"],["Other","MAT-BED-OTH"]
+  ];
+  const TABLE_MATERIALS = [
+    ["Solid Wood","MAT-TBL-SWD"],["Plywood","MAT-TBL-PLY"],["Engineered Wood","MAT-TBL-ENG"],
+    ["MDF","MAT-TBL-MDF"],["Metal","MAT-TBL-MTL"],["Glass","MAT-TBL-GLS"],["Marble","MAT-TBL-MRB"],
+    ["Granite","MAT-TBL-GRN"],["Wood and Glass Combination","MAT-TBL-WGC"],
+    ["Metal and Wood Combination","MAT-TBL-MWC"],["Custom Material","MAT-TBL-CUS"],["Other","MAT-TBL-OTH"]
+  ];
+
+  const COLOURS = [
+    ["Black","CLR-BLK","#000000"],["White","CLR-WHT","#FFFFFF"],["Off-White","CLR-OFW","#F5F1E8"],
+    ["Ivory","CLR-IVR","#FFFFF0"],["Cream","CLR-CRM","#F6EAD0"],["Beige","CLR-BGE","#E8DCC5"],
+    ["Tan","CLR-TAN","#D2B48C"],["Brown","CLR-BRN","#8B5A2B"],["Dark Brown","CLR-DBR","#5C3A21"],
+    ["Chocolate Brown","CLR-CHB","#3F2417"],["Walnut Brown","CLR-WAL","#6B4226"],["Grey","CLR-GRY","#8A8A8A"],
+    ["Charcoal Grey","CLR-CGR","#36454F"],["Navy Blue","CLR-NAV","#1B2A4A"],["Royal Blue","CLR-RBL","#2A4B9B"],
+    ["Teal","CLR-TEA","#0F6E6E"],["Olive Green","CLR-OLV","#6B7B3A"],["Bottle Green","CLR-BGR","#154734"],
+    ["Maroon","CLR-MRN","#7A1F2B"],["Burgundy","CLR-BUR","#5E1A29"],["Red","CLR-RED","#B3261E"],
+    ["Mustard Yellow","CLR-MUS","#D9A83B"],["Peach","CLR-PCH","#F3C6A5"],["Pink","CLR-PNK","#E8A9BE"],
+    ["Purple","CLR-PUR","#5D3A7A"],["Custom Colour","CLR-CUS", null]
+  ];
+
+  const CUSTOM_TRIGGER_WORDS = ["Custom","Other"]; // any label containing these triggers custom text field
+
+  // ============ ELEMENT REFS ============
+  const form = document.getElementById('bookingForm');
+  const furnitureTypeGrid = document.getElementById('furnitureTypeGrid');
+  const modelSection = document.getElementById('modelSection');
+  const modelSelect = document.getElementById('modelSelect');
+  const modelSubtext = document.getElementById('modelSubtext');
+  const customModelWrap = document.getElementById('customModelWrap');
+  const customModel = document.getElementById('customModel');
+  const customModelLabel = document.getElementById('customModelLabel');
+
+  const materialSection = document.getElementById('materialSection');
+  const materialSelect = document.getElementById('materialSelect');
+  const materialSubtext = document.getElementById('materialSubtext');
+  const customMaterialWrap = document.getElementById('customMaterialWrap');
+  const customMaterial = document.getElementById('customMaterial');
+  const customMaterialLabel = document.getElementById('customMaterialLabel');
+
+  const sofaSizeFields = document.getElementById('sofaSizeFields');
+  const bedSizeFields = document.getElementById('bedSizeFields');
+  const tableSizeFields = document.getElementById('tableSizeFields');
+  const seatingCapacity = document.getElementById('seatingCapacity');
+  const customSeatingWrap = document.getElementById('customSeatingWrap');
+  const customSeating = document.getElementById('customSeating');
+
+  const repIdInput = document.getElementById('repId');
+  const repNameInput = document.getElementById('repName');
+
+  const colourSelect = document.getElementById('colourSelect');
+  const customColourWrap = document.getElementById('customColourWrap');
+  const customColour = document.getElementById('customColour');
+  const colourPreviewRow = document.getElementById('colourPreviewRow');
+  const colourSwatchPreview = document.getElementById('colourSwatchPreview');
+  const colourSwatchLabel = document.getElementById('colourSwatchLabel');
+
+  const lengthInput = document.getElementById('length');
+  const widthInput = document.getElementById('width');
+  const heightInput = document.getElementById('height');
+  const measurementUnitSelect = document.getElementById('measurementUnit');
+
+  const professionSelect = document.getElementById('profession');
+  const customProfessionWrap = document.getElementById('customProfessionWrap');
+  const customProfession = document.getElementById('customProfession');
+
+  const totalAmountInput = document.getElementById('totalAmount');
+  const advanceAmountInput = document.getElementById('advanceAmount');
+  const displayTotal = document.getElementById('displayTotal');
+  const displayAdvance = document.getElementById('displayAdvance');
+  const displayRemaining = document.getElementById('displayRemaining');
+  const dealStatusSelect = document.getElementById('dealStatus');
+
+  const paymentMethodSelect = document.getElementById('paymentMethod');
+  const transRefWrap = document.getElementById('transRefWrap');
+
+  const confirmDateInput = document.getElementById('confirmDate');
+  const deliveryDateInput = document.getElementById('deliveryDate');
+
+  const uploadBox = document.getElementById('uploadBox');
+  const receiptInput = document.getElementById('receiptInput');
+  const uploadPreview = document.getElementById('uploadPreview');
+  const previewImg = document.getElementById('previewImg');
+  const previewName = document.getElementById('previewName');
+  const previewSize = document.getElementById('previewSize');
+  const removeReceiptBtn = document.getElementById('removeReceiptBtn');
+  const receiptErr = document.getElementById('receiptErr');
+
+  const submitBtn = document.getElementById('submitBtn');
+  const successOverlay = document.getElementById('successOverlay');
+  const errorOverlay = document.getElementById('errorOverlay');
+  const successBookingId = document.getElementById('successBookingId');
+  const errorMessage = document.getElementById('errorMessage');
+  const newBookingBtn = document.getElementById('newBookingBtn');
+  const closeErrorBtn = document.getElementById('closeErrorBtn');
+
+  const progressSteps = document.getElementById('progressSteps');
+  const trackFill = document.getElementById('trackFill');
+  const progressLabel = document.getElementById('progressLabel');
+
+  let receiptBase64 = null;
+  let receiptMimeType = null;
+  let receiptFileName = null;
+
+  // ============ INIT DEFAULTS ============
+  const today = new Date().toISOString().split('T')[0];
+  confirmDateInput.value = today;
+  deliveryDateInput.min = today;
+
+  // ============ COLOUR DROPDOWN SETUP ============
+  function fillColourSelect(){
+    colourSelect.innerHTML = '';
+    const ph = document.createElement('option');
+    ph.value = ''; ph.textContent = 'Select colour';
+    colourSelect.appendChild(ph);
+    COLOURS.forEach(([label, code, hex])=>{
+      const opt = document.createElement('option');
+      opt.value = label; opt.dataset.code = code; opt.dataset.hex = hex || '';
+      opt.textContent = label;
+      colourSelect.appendChild(opt);
+    });
+  }
+  fillColourSelect();
+
+  colourSelect.addEventListener('change', ()=>{
+    const selected = colourSelect.selectedOptions[0];
+    const isCustom = colourSelect.value === 'Custom Colour';
+    customColourWrap.style.display = isCustom ? 'block' : 'none';
+    if(!isCustom) customColour.value = '';
+
+    if(colourSelect.value && !isCustom && selected.dataset.hex){
+      colourSwatchPreview.style.background = selected.dataset.hex;
+      colourSwatchLabel.textContent = colourSelect.value;
+      colourPreviewRow.style.display = 'flex';
+    } else {
+      colourPreviewRow.style.display = 'none';
+    }
+  });
+
+  // ============ PROGRESS BAR (fully responsive) ============
+  const sectionEls = Array.from(document.querySelectorAll('[data-section]'));
+  const sectionTitles = {
+    1:"Order Identification", 2:"Furniture Type", 3:"Model / Product Type", 4:"Material / Fabric",
+    5:"Size & Quantity", 6:"Customer Details", 7:"Payment Details", 8:"Delivery Details",
+    9:"Receipt Upload", 10:"Notes & Consent"
+  };
+  function buildProgress(){
+    progressSteps.innerHTML = "";
+    for(let i=1;i<=10;i++){
+      const dot = document.createElement('div');
+      dot.className = 'progress-step-dot';
+      dot.dataset.step = i;
+      dot.textContent = i;
+      progressSteps.appendChild(dot);
+    }
+  }
+  buildProgress();
+
+  function updateProgress(){
+    const visibleSections = sectionEls.filter(s => s.style.display !== 'none');
+    let current = 1;
+    const scrollPos = window.scrollY + 140;
+    for(const s of visibleSections){
+      if(s.offsetTop <= scrollPos) current = parseInt(s.dataset.section,10);
+    }
+    const dots = progressSteps.querySelectorAll('.progress-step-dot');
+    dots.forEach(dot=>{
+      const n = parseInt(dot.dataset.step,10);
+      dot.classList.remove('done','active');
+      if(n < current) dot.classList.add('done');
+      else if(n === current) dot.classList.add('active');
+    });
+    // Fill from the centre of dot 1 to the centre of the current dot, proportional to 10 steps.
+    const fillPct = ((current - 1) / 9) * 100;
+    trackFill.style.width = fillPct + '%';
+    progressLabel.textContent = `Section ${current} of 10 — ${sectionTitles[current]}`;
+  }
+  window.addEventListener('scroll', updateProgress, {passive:true});
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+
+  // ============ SALES REPRESENTATIVE LOOKUP ============
+  repIdInput.addEventListener('input', ()=>{
+    // numeric-only, max 3 digits
+    repIdInput.value = repIdInput.value.replace(/\D/g,'').slice(0,3);
+    const id = repIdInput.value;
+    const fieldWrap = repIdInput.closest('.field');
+    if(SALES_REPRESENTATIVES[id]){
+      repNameInput.value = SALES_REPRESENTATIVES[id];
+      fieldWrap.classList.remove('invalid');
+    } else {
+      repNameInput.value = '';
+      if(id.length === 3){
+        fieldWrap.classList.add('invalid');
+      } else {
+        fieldWrap.classList.remove('invalid');
+      }
+    }
+  });
+
+  // ============ FURNITURE TYPE SELECTION ============
+  function fillSelect(selectEl, list, placeholder){
+    selectEl.innerHTML = '';
+    const ph = document.createElement('option');
+    ph.value=''; ph.textContent = placeholder; selectEl.appendChild(ph);
+    list.forEach(([label,code])=>{
+      const opt = document.createElement('option');
+      opt.value = label; opt.dataset.code = code;
+      opt.textContent = label;
+      selectEl.appendChild(opt);
+    });
+  }
+
+  function isCustomLabel(label){
+    return CUSTOM_TRIGGER_WORDS.some(w => label === w || label.startsWith(w));
+  }
+
+  furnitureTypeGrid.addEventListener('change', (e)=>{
+    if(e.target.name !== 'furnitureType') return;
+    const val = e.target.value;
+    document.querySelectorAll('.type-card').forEach(c=>c.classList.remove('selected'));
+    e.target.closest('.type-card').classList.add('selected');
+    document.getElementById('furnitureTypeErrWrap').style.display = 'none';
+
+    modelSection.style.display = 'block';
+    materialSection.style.display = 'block';
+    sofaSizeFields.style.display = 'none';
+    bedSizeFields.style.display = 'none';
+    tableSizeFields.style.display = 'none';
+    customModelWrap.style.display = 'none';
+    customMaterialWrap.style.display = 'none';
+
+    if(val === 'Sofa'){
+      modelSubtext.textContent = 'Choose the sofa model';
+      materialSubtext.textContent = 'Choose the sofa fabric';
+      fillSelect(modelSelect, SOFA_MODELS, 'Select sofa model');
+      fillSelect(materialSelect, SOFA_FABRICS, 'Select fabric');
+      customModelLabel.innerHTML = 'Enter custom sofa model or description <span class="req">*</span>';
+      customMaterialLabel.innerHTML = 'Enter custom fabric name and details <span class="req">*</span>';
+      sofaSizeFields.style.display = 'block';
+    } else if(val === 'Bed'){
+      modelSubtext.textContent = 'Choose the bed model';
+      materialSubtext.textContent = 'Choose the bed material';
+      fillSelect(modelSelect, BED_MODELS, 'Select bed model');
+      fillSelect(materialSelect, BED_MATERIALS, 'Select material');
+      customModelLabel.innerHTML = 'Enter custom bed model or description <span class="req">*</span>';
+      customMaterialLabel.innerHTML = 'Enter custom material details <span class="req">*</span>';
+      bedSizeFields.style.display = 'block';
+    } else if(val === 'Table'){
+      modelSubtext.textContent = 'Choose the table type';
+      materialSubtext.textContent = 'Choose the table material';
+      fillSelect(modelSelect, TABLE_MODELS, 'Select table type');
+      fillSelect(materialSelect, TABLE_MATERIALS, 'Select material');
+      customModelLabel.innerHTML = 'Enter custom table model or description <span class="req">*</span>';
+      customMaterialLabel.innerHTML = 'Enter custom material details <span class="req">*</span>';
+      tableSizeFields.style.display = 'block';
+    }
+    setTimeout(updateProgress, 50);
+  });
+
+  modelSelect.addEventListener('change', ()=>{
+    customModelWrap.style.display = isCustomLabel(modelSelect.value) ? 'block' : 'none';
+  });
+  materialSelect.addEventListener('change', ()=>{
+    customMaterialWrap.style.display = isCustomLabel(materialSelect.value) ? 'block' : 'none';
+  });
+  seatingCapacity.addEventListener('change', ()=>{
+    customSeatingWrap.style.display = seatingCapacity.value === 'Custom' ? 'block' : 'none';
+  });
+  professionSelect.addEventListener('change', ()=>{
+    customProfessionWrap.style.display = professionSelect.value === 'Other' ? 'block' : 'none';
+  });
+
+  // ============ DIMENSIONS: unit becomes required only if a dimension is entered ============
+  function anyDimensionEntered(){
+    return [lengthInput, widthInput, heightInput].some(inp => inp.value.trim() !== '');
+  }
+  function refreshUnitRequirement(){
+    const needed = anyDimensionEntered();
+    const unitFieldWrap = measurementUnitSelect.closest('.field');
+    const optLabel = document.getElementById('unitOptLabel');
+    if(needed){
+      optLabel.textContent = '';
+      optLabel.previousSibling && null;
+    } else {
+      optLabel.textContent = '(optional)';
+      unitFieldWrap.classList.remove('invalid');
+    }
+  }
+  [lengthInput, widthInput, heightInput].forEach(inp=>{
+    inp.addEventListener('input', refreshUnitRequirement);
+  });
+  refreshUnitRequirement();
+
+  // ============ RADIO PILLS ============
+  document.querySelectorAll('.radio-pill-group').forEach(group=>{
+    group.addEventListener('change', (e)=>{
+      group.querySelectorAll('.radio-pill').forEach(p=>p.classList.remove('selected'));
+      e.target.closest('.radio-pill').classList.add('selected');
+    });
+    // set initial selected
+    const checked = group.querySelector('input:checked');
+    if(checked) checked.closest('.radio-pill').classList.add('selected');
+  });
+
+  // ============ PAYMENT CALCULATIONS ============
+  function formatINR(num){
+    if(isNaN(num)) num = 0;
+    return '₹' + num.toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2});
+  }
+  function recalcPayment(){
+    const total = parseFloat(totalAmountInput.value) || 0;
+    let advance = parseFloat(advanceAmountInput.value) || 0;
+    if(advance > total){
+      advance = total;
+      advanceAmountInput.value = total;
+    }
+    const remaining = Math.max(total - advance, 0);
+    displayTotal.textContent = formatINR(total);
+    displayAdvance.textContent = formatINR(advance);
+    displayRemaining.textContent = formatINR(remaining);
+  }
+  totalAmountInput.addEventListener('input', recalcPayment);
+  advanceAmountInput.addEventListener('input', recalcPayment);
+  recalcPayment();
+
+  paymentMethodSelect.addEventListener('change', ()=>{
+    transRefWrap.style.display = paymentMethodSelect.value === 'Cash' ? 'none' : 'block';
+  });
+  transRefWrap.style.display = paymentMethodSelect.value === 'Cash' ? 'none' : 'block';
+
+  confirmDateInput.addEventListener('change', ()=>{
+    deliveryDateInput.min = confirmDateInput.value;
+  });
+
+  // ============ RECEIPT UPLOAD ============
+  function bytesToSize(bytes){
+    if(bytes < 1024) return bytes + ' B';
+    if(bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB';
+    return (bytes/(1024*1024)).toFixed(2) + ' MB';
+  }
+
+  uploadBox.addEventListener('click', ()=> receiptInput.click());
+  uploadBox.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); receiptInput.click(); } });
+  ['dragover','dragenter'].forEach(ev=> uploadBox.addEventListener(ev, (e)=>{ e.preventDefault(); uploadBox.classList.add('dragover'); }));
+  ['dragleave','drop'].forEach(ev=> uploadBox.addEventListener(ev, (e)=>{ e.preventDefault(); uploadBox.classList.remove('dragover'); }));
+  uploadBox.addEventListener('drop', (e)=>{
+    const file = e.dataTransfer.files[0];
+    if(file) handleFile(file);
+  });
+  receiptInput.addEventListener('change', ()=>{
+    const file = receiptInput.files[0];
+    if(file) handleFile(file);
+  });
+  removeReceiptBtn.addEventListener('click', ()=>{
+    receiptBase64 = null; receiptMimeType = null; receiptFileName = null;
+    receiptInput.value = '';
+    uploadPreview.classList.remove('show');
+  });
+
+  function handleFile(file){
+    receiptErr.style.display = 'none';
+    if(!ALLOWED_TYPES.includes(file.type)){
+      receiptErr.textContent = 'Unsupported file type. Please upload JPG, PNG, or WebP.';
+      receiptErr.style.display = 'block';
+      return;
+    }
+    if(file.size > MAX_FILE_SIZE){
+      receiptErr.textContent = 'File is too large. Maximum allowed size is 5 MB.';
+      receiptErr.style.display = 'block';
+      return;
+    }
+    compressImage(file).then(({dataUrl, mimeType, size})=>{
+      receiptBase64 = dataUrl.split(',')[1];
+      receiptMimeType = mimeType;
+      receiptFileName = file.name;
+      previewImg.src = dataUrl;
+      previewName.textContent = file.name;
+      previewSize.textContent = bytesToSize(size);
+      uploadPreview.classList.add('show');
+    }).catch(()=>{
+      receiptErr.textContent = 'Could not process this image. Please try a different file.';
+      receiptErr.style.display = 'block';
+    });
+  }
+
+  function compressImage(file){
+    return new Promise((resolve, reject)=>{
+      const reader = new FileReader();
+      reader.onload = (e)=>{
+        const img = new Image();
+        img.onload = ()=>{
+          let { width, height } = img;
+          if(width > MAX_IMAGE_DIMENSION || height > MAX_IMAGE_DIMENSION){
+            const scale = Math.min(MAX_IMAGE_DIMENSION/width, MAX_IMAGE_DIMENSION/height);
+            width = Math.round(width*scale);
+            height = Math.round(height*scale);
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width; canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          const mimeType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+          const quality = mimeType === 'image/jpeg' ? 0.82 : undefined;
+          const dataUrl = canvas.toDataURL(mimeType, quality);
+          const size = Math.round((dataUrl.length - 'data:'.length - mimeType.length - ';base64,'.length) * 0.75);
+          resolve({dataUrl, mimeType, size});
+        };
+        img.onerror = reject;
+        img.src = e.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // ============ VALIDATION HELPERS ============
+  function setInvalid(fieldEl, invalid){
+    if(!fieldEl) return;
+    fieldEl.classList.toggle('invalid', invalid);
+  }
+  function validatePhone(value){
+    const cleaned = value.replace(/[\s-]/g,'');
+    return /^(\+91)?[6-9]\d{9}$/.test(cleaned);
+  }
+  function validatePincode(value){
+    return /^\d{6}$/.test(value.trim());
+  }
+  function validateDimension(value){
+    if(value.trim() === '') return true; // optional
+    const n = parseFloat(value);
+    return !isNaN(n) && n > 0;
+  }
+
+  function validateForm(){
+    let firstInvalid = null;
+    let ok = true;
+    function mark(el, condition, fieldWrap){
+      const wrap = fieldWrap || (el ? el.closest('.field') : null);
+      const invalid = !condition;
+      setInvalid(wrap, invalid);
+      if(invalid){ ok = false; if(!firstInvalid) firstInvalid = wrap || el; }
+    }
+
+    // Sales representative
+    const repIdVal = repIdInput.value.trim();
+    mark(repIdInput, !!SALES_REPRESENTATIVES[repIdVal]);
+    mark(confirmDateInput, !!confirmDateInput.value);
+
+    const furnitureType = form.querySelector('input[name=furnitureType]:checked');
+    const ftWrap = document.getElementById('furnitureTypeErrWrap');
+    if(!furnitureType){ ok = false; ftWrap.style.display='block'; if(!firstInvalid) firstInvalid = furnitureTypeGrid; }
+    else { ftWrap.style.display='none'; }
+
+    if(furnitureType){
+      mark(modelSelect, !!modelSelect.value);
+      if(isCustomLabel(modelSelect.value)) mark(customModel, customModel.value.trim().length>0);
+      mark(materialSelect, !!materialSelect.value);
+      if(isCustomLabel(materialSelect.value)) mark(customMaterial, customMaterial.value.trim().length>0);
+
+      if(furnitureType.value === 'Sofa'){
+        mark(seatingCapacity, !!seatingCapacity.value);
+        if(seatingCapacity.value === 'Custom'){
+          const v = parseInt(customSeating.value,10);
+          mark(customSeating, v>=1 && v<=50);
+        }
+      } else if(furnitureType.value === 'Bed'){
+        mark(document.getElementById('bedQuantity'), parseInt(document.getElementById('bedQuantity').value,10) >= 1);
+        mark(document.getElementById('bedSize'), !!document.getElementById('bedSize').value);
+      } else if(furnitureType.value === 'Table'){
+        mark(document.getElementById('tableQuantity'), parseInt(document.getElementById('tableQuantity').value,10) >= 1);
+      }
+    }
+
+    // Dimensions are optional but must be valid positive numbers if entered
+    mark(lengthInput, validateDimension(lengthInput.value));
+    mark(widthInput, validateDimension(widthInput.value));
+    mark(heightInput, validateDimension(heightInput.value));
+    // Unit required only if any dimension entered
+    if(anyDimensionEntered()){
+      mark(measurementUnitSelect, !!measurementUnitSelect.value);
+    } else {
+      setInvalid(measurementUnitSelect.closest('.field'), false);
+    }
+
+    mark(document.getElementById('productQuantity'), parseInt(document.getElementById('productQuantity').value,10) >= 1);
+
+    mark(colourSelect, !!colourSelect.value);
+    if(colourSelect.value === 'Custom Colour') mark(customColour, customColour.value.trim().length>0);
+
+    mark(document.getElementById('customerName'), document.getElementById('customerName').value.trim().length>0);
+    mark(document.getElementById('primaryPhone'), validatePhone(document.getElementById('primaryPhone').value));
+    mark(professionSelect, !!professionSelect.value);
+    if(professionSelect.value === 'Other') mark(customProfession, customProfession.value.trim().length>0);
+    mark(document.getElementById('district'), document.getElementById('district').value.trim().length>0);
+    mark(document.getElementById('area'), document.getElementById('area').value.trim().length>0);
+    mark(document.getElementById('address'), document.getElementById('address').value.trim().length>0);
+    mark(document.getElementById('pincode'), validatePincode(document.getElementById('pincode').value));
+
+    const total = parseFloat(totalAmountInput.value);
+    const advance = parseFloat(advanceAmountInput.value);
+    mark(totalAmountInput, total > 0);
+    const advanceOk = !isNaN(advance) && advance >= 0 && advance <= (total||0) &&
+      (advance > 0 || dealStatusSelect.value === 'On Hold');
+    mark(advanceAmountInput, advanceOk);
+
+    mark(deliveryDateInput, !!deliveryDateInput.value && deliveryDateInput.value >= confirmDateInput.value);
+
+    if(!receiptBase64){
+      ok = false;
+      receiptErr.textContent = 'Please upload a receipt image before submitting.';
+      receiptErr.style.display = 'block';
+      if(!firstInvalid) firstInvalid = uploadBox;
+    } else {
+      receiptErr.style.display = 'none';
+    }
+
+    const terms = document.getElementById('termsConfirmed');
+    const accuracy = document.getElementById('dataAccuracy');
+    if(!terms.checked){ ok=false; if(!firstInvalid) firstInvalid = terms; }
+    if(!accuracy.checked){ ok=false; if(!firstInvalid) firstInvalid = accuracy; }
+
+    if(firstInvalid){
+      firstInvalid.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+    return ok;
+  }
+
+  // ============ SUBMIT ============
+  function collectPayload(){
+    const furnitureType = form.querySelector('input[name=furnitureType]:checked');
+    const furnitureTypeVal = furnitureType ? furnitureType.value : '';
+    const furnitureTypeCode = furnitureType ? furnitureType.closest('.type-card').dataset.code : '';
+    const modelCode = modelSelect.selectedOptions[0] ? modelSelect.selectedOptions[0].dataset.code : '';
+    const materialCode = materialSelect.selectedOptions[0] ? materialSelect.selectedOptions[0].dataset.code : '';
+    const deliveryPriority = form.querySelector('input[name=deliveryPriority]:checked').value;
+    const installationRequired = form.querySelector('input[name=installationRequired]:checked').value;
+
+    let seatCapacity = '';
+    if(furnitureTypeVal === 'Sofa'){
+      seatCapacity = seatingCapacity.value === 'Custom' ? customSeating.value : seatingCapacity.value;
+    }
+
+    const professionVal = professionSelect.value === 'Other' ? customProfession.value.trim() : professionSelect.value;
+    const colourCode = colourSelect.selectedOptions[0] ? colourSelect.selectedOptions[0].dataset.code : '';
+
+    return {
+      dealStatus: dealStatusSelect.value,
+      repId: repIdInput.value.trim(),
+      repName: repNameInput.value.trim(), // Apps Script re-derives and does not trust this
+      confirmDate: confirmDateInput.value,
+
+      furnitureType: furnitureTypeVal,
+      furnitureTypeId: furnitureTypeCode,
+      modelName: modelSelect.value,
+      modelId: modelCode,
+      customModelDescription: customModelWrap.style.display !== 'none' ? customModel.value.trim() : '',
+
+      materialName: materialSelect.value,
+      materialId: materialCode,
+      customMaterialDescription: customMaterialWrap.style.display !== 'none' ? customMaterial.value.trim() : '',
+
+      seatingCapacity: seatCapacity,
+      bedQuantity: furnitureTypeVal==='Bed' ? document.getElementById('bedQuantity').value : '',
+      bedSize: furnitureTypeVal==='Bed' ? document.getElementById('bedSize').value : '',
+      tableQuantity: furnitureTypeVal==='Table' ? document.getElementById('tableQuantity').value : '',
+      tableSeating: furnitureTypeVal==='Table' ? document.getElementById('tableSeating').value : '',
+
+      productQuantity: document.getElementById('productQuantity').value,
+      length: lengthInput.value.trim(),
+      width: widthInput.value.trim(),
+      height: heightInput.value.trim(),
+      measurementUnit: measurementUnitSelect.value,
+
+      colourName: colourSelect.value,
+      colourId: colourCode,
+      customColourDescription: colourSelect.value === 'Custom Colour' ? customColour.value.trim() : '',
+
+      finish: document.getElementById('finish').value.trim(),
+      customizationDetails: document.getElementById('customizationDetails').value.trim(),
+
+      customerName: document.getElementById('customerName').value.trim(),
+      primaryPhone: document.getElementById('primaryPhone').value.trim(),
+      altPhone: document.getElementById('altPhone').value.trim(),
+      profession: professionVal,
+      email: document.getElementById('email').value.trim(),
+      district: document.getElementById('district').value.trim(),
+      area: document.getElementById('area').value.trim(),
+      address: document.getElementById('address').value.trim(),
+      landmark: document.getElementById('landmark').value.trim(),
+      pincode: document.getElementById('pincode').value.trim(),
+
+      totalAmount: parseFloat(totalAmountInput.value) || 0,
+      advanceAmount: parseFloat(advanceAmountInput.value) || 0,
+      remainingBalance: Math.max((parseFloat(totalAmountInput.value)||0) - (parseFloat(advanceAmountInput.value)||0), 0),
+      paymentMethod: paymentMethodSelect.value,
+      transactionRef: document.getElementById('transRef').value.trim(),
+      paymentNotes: document.getElementById('paymentNotes').value.trim(),
+
+      deliveryDate: deliveryDateInput.value,
+      deliveryPriority: deliveryPriority,
+      deliveryInstructions: document.getElementById('deliveryInstructions').value.trim(),
+      installationRequired: installationRequired,
+      floorNumber: document.getElementById('floorNumber').value.trim(),
+      liftAvailable: document.getElementById('liftAvailable').value,
+
+      receiptBase64: receiptBase64,
+      receiptMimeType: receiptMimeType,
+      receiptFileName: receiptFileName,
+
+      customerRequirements: document.getElementById('customerRequirements').value.trim(),
+      internalNotes: document.getElementById('internalNotes').value.trim(),
+
+      userAgent: navigator.userAgent
+    };
+  }
+
+  function setLoading(loading){
+    submitBtn.disabled = loading;
+    submitBtn.classList.toggle('loading', loading);
+    submitBtn.querySelector('.btn-text').textContent = loading ? 'Submitting…' : 'Submit Booking';
+  }
+
+  function resetForm(){
+    form.reset();
+    document.querySelectorAll('.type-card').forEach(c=>c.classList.remove('selected'));
+    document.querySelectorAll('.field.invalid').forEach(f=>f.classList.remove('invalid'));
+    modelSection.style.display = 'none';
+    materialSection.style.display = 'none';
+    sofaSizeFields.style.display = 'none';
+    bedSizeFields.style.display = 'none';
+    tableSizeFields.style.display = 'none';
+    customModelWrap.style.display = 'none';
+    customMaterialWrap.style.display = 'none';
+    customSeatingWrap.style.display = 'none';
+    customProfessionWrap.style.display = 'none';
+    customColourWrap.style.display = 'none';
+    colourPreviewRow.style.display = 'none';
+    repNameInput.value = '';
+    receiptBase64 = null; receiptMimeType = null; receiptFileName = null;
+    uploadPreview.classList.remove('show');
+    receiptErr.style.display = 'none';
+    confirmDateInput.value = today;
+    deliveryDateInput.min = today;
+    document.getElementById('bookingId').value = 'Will be generated after submission';
+    recalcPayment();
+    refreshUnitRequirement();
+    transRefWrap.style.display = 'none';
+    document.querySelectorAll('.radio-pill-group').forEach(group=>{
+      group.querySelectorAll('.radio-pill').forEach(p=>p.classList.remove('selected'));
+      const checked = group.querySelector('input:checked');
+      if(checked) checked.closest('.radio-pill').classList.add('selected');
+    });
+    window.scrollTo({top:0, behavior:'smooth'});
+    updateProgress();
+  }
+
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    if(!validateForm()) return;
+
+    setLoading(true);
+    const payload = collectPayload();
+
+    try{
+      if(APPS_SCRIPT_WEB_APP_URL.indexOf('PASTE_YOUR') === 0){
+        throw new Error('CONFIG_MISSING');
+      }
+      // Apps Script Web Apps do not support JSON preflight well from the browser in all setups.
+      // We send as text/plain to avoid a CORS preflight OPTIONS request, which Apps Script Web Apps
+      // do not handle. The Apps Script doPost() parses e.postData.contents as JSON.
+      const response = await fetch(APPS_SCRIPT_WEB_APP_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json();
+
+      if(result.success){
+        successBookingId.textContent = result.bookingId || '';
+        successOverlay.classList.add('show');
+      } else {
+        errorMessage.textContent = result.message || 'The server rejected this submission. Please review the details and try again.';
+        errorOverlay.classList.add('show');
+      }
+    } catch(err){
+      if(err && err.message === 'CONFIG_MISSING'){
+        errorMessage.textContent = 'The Apps Script Web App URL has not been configured yet. Please paste the deployment URL into APPS_SCRIPT_WEB_APP_URL in the code.';
+      } else {
+        errorMessage.textContent = 'Could not reach the server. Please check your internet connection and try again.';
+      }
+      errorOverlay.classList.add('show');
+    } finally {
+      setLoading(false);
+    }
+  });
+
+  newBookingBtn.addEventListener('click', ()=>{
+    successOverlay.classList.remove('show');
+    resetForm();
+  });
+  closeErrorBtn.addEventListener('click', ()=>{
+    errorOverlay.classList.remove('show');
+  });
+
+})();
+</script>
+</body>
+</html>

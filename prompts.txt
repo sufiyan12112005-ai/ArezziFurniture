@@ -1,0 +1,34 @@
+
+listen i am going to make a website domain is already taken arezzifurniture.com not yet started anything before that 
+i want to make a fill up form for the our people who do the deal like when they visit and deal is close they should fill up the 
+info arezzi furniture mainly manufuture sofas 90 % 5% bed % 5 tables their in bangalore and near by districts of bangalore for 15
+years i want to make a form first will be the what the product by customer 
+what like what product what furniture mention 3 option sofas on top , bed , table than next model what type of sofas , bed , table
+i will option for sofas which L shape , recliner, sof cumbed, 3+2 sofa , 3+1+1 sofa , lounge sofa , u shape sofa , maharaja
+sofa , wooden sofa and last customize option direclty they can only right and add other model popular if missed 
+next is fabric option for sofa for other furniture u decide 
+sofa fabric are leatherette , suede fabric , geninue leather , micro fabric , brockely fabric ,nylon , velvet , jute , silk 
+linen , cotton and other according to you and custom option to write on own 
+next is seating quantity give from 1 to 10 and custom number format and next is customer details name , phone number , professional of the buyer 
+
+district own they will write area own they will no option needed  ,date of confirmation , total amount of the product , advance ammouunt received 
+expected or told date of delivery and image of reciept and for each user i need unique id and for furniture type also id model or type also id 
+and fabric also id unique the idea is first form fill submit than app scirpt stores in google sheets and add extra field if u want and also i need html css  
+javascript only in one page file and mention the app script link space i will add later okay make sure the design and layout is amazing 
+specically in mobile till 370 px width perfect good 
+
+
+okay it really was what u done give but make some changes and add some extra things 
+changes or better or mistakes :
+the progress track bar is not working the length is half if the screen is 370 the bar length is half of that which is not looking good make it correct 
+second problem for sales representative name what u do is we will have 4 people fixed i will give the names and id if the person 
+enter a matching id automatically fill the sales representative name id and names are 101 akmal 102 zabi 103 suhail 104 sufiyan 4 four people if this id is enter 
+automatically the name should come and no custom name cant be added 
+and furniture type remove the 90% %5 5% of the order remove all that numbers dont want and the emojis used for furniture type is like 
+the webiste generated ai is looking i want customize icon for furniture type based on theme not like random ai generated like 
+and keep lenght width measurment unit field height keep optional and give 15 to 20 color major and popular color option and one custom 
+
+
+
+listen after understanding all this prompts and info of my busniess
+ 
