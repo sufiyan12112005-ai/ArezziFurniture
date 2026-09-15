@@ -1,5 +1,5 @@
 const CACHE_NAME = 'notification-simulator-v1';
-const APP_SHELL = ['./', './index.html', './manifest.webmanifest'];
+const APP_SHELL = ['./', './new.html', './manifest.webmanifest'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
@@ -18,7 +18,7 @@ self.addEventListener('fetch', event => {
       const copy = response.clone();
       caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy)).catch(() => {});
       return response;
-    }).catch(() => caches.match('./index.html')))
+    }).catch(() => caches.match('./new.html')))
   );
 });
 
