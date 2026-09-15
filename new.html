@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0f766e" />
+  <title>Notification Simulator</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <style>
+    :root{
+      --bg:#f5f7f8;--panel:#fff;--panel2:#f8fafc;--text:#17212b;--muted:#667085;
+      --line:#e6e9ee;--accent:#0f766e;--accent2:#115e59;--danger:#b42318;--warn:#b54708;
+      --ok:#067647;--shadow:0 12px 32px rgba(16,24,40,.08);--radius:18px;
+    }
+    [data-theme="dark"]{--bg:#0b1116;--panel:#101821;--panel2:#0d151d;--text:#eef3f6;--muted:#98a2b3;--line:#24303d;--shadow:0 12px 32px rgba(0,0,0,.35)}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    button,input,select,textarea{font:inherit} button{cursor:pointer} a{color:inherit}
+    .app{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+    .sidebar{position:sticky;top:0;height:100vh;background:var(--panel);border-right:1px solid var(--line);padding:22px 16px;display:flex;flex-direction:column;gap:18px;z-index:20}
+    .brand{display:flex;align-items:center;gap:12px;padding:2px 8px 14px}.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(145deg,var(--accent),#14b8a6);display:grid;place-items:center;color:white;font-weight:800;box-shadow:var(--shadow)}
+    .brand h1{font-size:16px;margin:0}.brand small{display:block;color:var(--muted);margin-top:2px}
+    .nav{display:grid;gap:6px}.nav button{display:flex;gap:10px;align-items:center;border:0;background:transparent;color:var(--muted);padding:11px 12px;border-radius:12px;text-align:left}.nav button.active,.nav button:hover{background:var(--panel2);color:var(--text)}
+    .side-note{margin-top:auto;border:1px solid var(--line);background:var(--panel2);padding:12px;border-radius:14px;font-size:12px;color:var(--muted);line-height:1.5}
+    .main{min-width:0}.topbar{position:sticky;top:0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:14px clamp(16px,3vw,34px);display:flex;align-items:center;justify-content:space-between;z-index:10}
+    .topbar h2{margin:0;font-size:20px}.top-actions{display:flex;gap:8px;flex-wrap:wrap}.content{max-width:1480px;margin:auto;padding:24px clamp(16px,3vw,34px) 60px}
+    .section{display:none}.section.active{display:block}.grid{display:grid;gap:16px}.grid.cards{grid-template-columns:repeat(4,minmax(0,1fr))}.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}.metric .label{color:var(--muted);font-size:13px}.metric .value{font-size:28px;font-weight:800;margin-top:8px}.metric .sub{font-size:12px;color:var(--muted);margin-top:5px}
+    .hero{display:grid;grid-template-columns:1.4fr .9fr;gap:16px;margin-bottom:16px}.hero h3{margin:0 0 8px;font-size:22px}.muted{color:var(--muted)}
+    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn{border:1px solid var(--line);background:var(--panel);color:var(--text);padding:9px 12px;border-radius:11px;font-weight:650}.btn:hover{transform:translateY(-1px)}.btn.primary{background:var(--accent);color:white;border-color:var(--accent)}.btn.danger{color:#fff;background:var(--danger);border-color:var(--danger)}.btn.ghost{background:transparent}.btn.small{padding:6px 9px;font-size:12px}.btn.warn{background:#fff7ed;color:#9a3412;border-color:#fed7aa}
+    .status{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:5px 9px;border-radius:999px;border:1px solid var(--line);background:var(--panel2)}.dot{width:8px;height:8px;border-radius:50%;background:#98a2b3}.dot.ok{background:#12b76a}.dot.warn{background:#f79009}.dot.bad{background:#f04438}
+    .toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:0 0 14px}.toolbar h3{margin:0}.toolbar .row{justify-content:flex-end}.search{min-width:220px}
+    input,select,textarea{width:100%;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:10px;padding:10px 11px;outline:none} input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)} textarea{min-height:90px;resize:vertical}
+    .field{display:grid;gap:6px}.field label{font-size:12px;font-weight:700;color:var(--muted)}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.form-grid .full{grid-column:1/-1}
+    .list{display:grid;gap:10px}.item{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px}.avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;background:linear-gradient(145deg,#cbd5e1,#94a3b8);display:grid;place-items:center;color:white;font-weight:800;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}.item h4{margin:0 0 3px}.meta{font-size:12px;color:var(--muted)}
+    .tablewrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:var(--panel)} table{width:100%;border-collapse:collapse;min-width:900px} th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top} th{font-size:12px;color:var(--muted);background:var(--panel2);position:sticky;top:0} td{font-size:13px}.msg{max-width:340px;white-space:normal}.nowrap{white-space:nowrap}
+    .notice{border:1px solid #bfdbfe;background:#eff6ff;color:#1d4ed8;border-radius:14px;padding:12px 14px;font-size:13px;line-height:1.5}.notice.warn{border-color:#fed7aa;background:#fff7ed;color:#9a3412}.notice.ok{border-color:#bbf7d0;background:#f0fdf4;color:#166534}
+    .timeline{display:grid;gap:8px}.tick{display:grid;grid-template-columns:90px 1fr auto;gap:10px;align-items:center;padding:10px;border-left:3px solid var(--accent);background:var(--panel2);border-radius:8px}.tick .time{font-weight:800}
+    dialog{border:0;padding:0;border-radius:18px;width:min(720px,calc(100vw - 26px));background:var(--panel);color:var(--text);box-shadow:0 28px 80px rgba(0,0,0,.28)} dialog::backdrop{background:rgba(10,15,20,.55);backdrop-filter:blur(2px)} .modal{padding:18px}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.modal-head h3{margin:0}.close{border:0;background:transparent;color:var(--muted);font-size:22px}
+    .preview-phone{border:1px solid var(--line);border-radius:28px;background:#111827;padding:14px;max-width:390px;margin:auto;box-shadow:var(--shadow)}.preview-screen{background:linear-gradient(180deg,#e5e7eb,#cbd5e1);border-radius:20px;padding:14px;min-height:500px}.sysnote{background:rgba(255,255,255,.94);color:#111827;border-radius:18px;padding:12px;display:grid;grid-template-columns:auto 1fr auto;gap:10px;box-shadow:0 10px 24px rgba(0,0,0,.18)}.sysnote .icon{width:40px;height:40px;border-radius:50%;background:#cbd5e1;overflow:hidden;display:grid;place-items:center}.sysnote .icon img{width:100%;height:100%;object-fit:cover}.sysnote strong{display:block}.sysnote .body{font-size:13px;margin-top:2px}.sysnote time{font-size:11px;color:#667085}.app-label{font-size:10px;color:#667085;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+    .status-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.status-box{border:1px solid var(--line);background:var(--panel2);border-radius:14px;padding:13px}.status-box .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}.status-box .v{font-weight:800;margin-top:5px}
+    .mobile-menu{display:none}.toast{position:fixed;right:16px;bottom:16px;z-index:100;background:#111827;color:#fff;padding:11px 14px;border-radius:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:none}
+    @media(max-width:1100px){.grid.cards{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}.status-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:760px){.app{display:block}.sidebar{position:fixed;left:-280px;width:260px;transition:.2s;box-shadow:var(--shadow)}.sidebar.open{left:0}.mobile-menu{display:inline-flex}.topbar{padding:12px 14px}.content{padding:16px 12px 50px}.grid.cards{grid-template-columns:1fr 1fr}.form-grid{grid-template-columns:1fr}.toolbar{align-items:flex-start;flex-direction:column}.toolbar .row{width:100%;justify-content:flex-start}.search{min-width:0;flex:1}.item{grid-template-columns:auto 1fr}.item>.row{grid-column:1/-1}.status-grid{grid-template-columns:1fr}.tick{grid-template-columns:78px 1fr}.tick>:last-child{grid-column:2}.top-actions .desktop-only{display:none}}
+    @media(max-width:420px){.grid.cards{grid-template-columns:1fr}.metric .value{font-size:24px}.btn{padding:8px 10px}.topbar h2{font-size:17px}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Primary navigation">
+    <div class="brand"><div class="logo">NS</div><div><h1>Notification Simulator</h1><small>Android / PWA demo</small></div></div>
+    <nav class="nav" id="nav">
+      <button class="active" data-section="dashboard">Dashboard</button>
+      <button data-section="people">People</button>
+      <button data-section="messages">Messages</button>
+      <button data-section="schedule">Schedule</button>
+      <button data-section="preview">Preview</button>
+      <button data-section="history">History</button>
+      <button data-section="pwa">PWA Status</button>
+      <button data-section="settings">Settings</button>
+    </nav>
+    <div class="side-note">This is a <strong>simulated notification system</strong>. It does not create real WhatsApp messages. Android/Chrome may limit background delivery.</div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="row"><button class="btn mobile-menu" id="menuBtn">☰</button><h2 id="sectionTitle">Dashboard</h2></div>
+      <div class="top-actions"><button class="btn desktop-only" id="installBtn" hidden>Install App</button><button class="btn" id="themeBtn">Theme</button><button class="btn primary" id="testSystemBtn">Test System Notification</button></div>
+    </header>
+
+    <main class="content">
+      <section class="section active" id="dashboard">
+        <div class="hero">
+          <article class="card">
+            <h3>Local notification scheduler</h3>
+            <p class="muted">Create people and schedules, then deliver Android/browser system notifications while the PWA is active. A future push backend is required for reliable delivery after the app/browser is fully closed.</p>
+            <div class="row" style="margin-top:14px"><button class="btn primary" id="startBtn">Start Schedule</button><button class="btn" id="pauseBtn">Pause</button><button class="btn" id="resumeBtn">Resume</button><button class="btn danger" id="stopBtn">Stop</button><button class="btn" id="restartBtn">Restart</button></div>
+          </article>
+          <article class="card">
+            <div class="status-grid">
+              <div class="status-box"><div class="k">Scheduler</div><div class="v" id="schedulerStatus">Stopped</div></div>
+              <div class="status-box"><div class="k">Permission</div><div class="v" id="permMini">Not asked</div></div>
+              <div class="status-box"><div class="k">Next in</div><div class="v" id="nextIn">—</div></div>
+            </div>
+            <div class="row" style="margin-top:14px"><button class="btn" id="enableNotifBtn">Enable Notifications</button><button class="btn" id="enableSoundBtn">Enable Sound</button></div>
+          </article>
+        </div>
+
+        <div class="grid cards">
+          <article class="card metric"><div class="label">People</div><div class="value" id="mPeople">0</div><div class="sub">Configured profiles</div></article>
+          <article class="card metric"><div class="label">Scheduled</div><div class="value" id="mScheduled">0</div><div class="sub">Enabled notification rules</div></article>
+          <article class="card metric"><div class="label">Delivered</div><div class="value" id="mDelivered">0</div><div class="sub">Current run / history</div></article>
+          <article class="card metric"><div class="label">Pending</div><div class="value" id="mPending">0</div><div class="sub">Future events</div></article>
+        </div>
+
+        <div class="grid" style="grid-template-columns:1.2fr .8fr;margin-top:16px">
+          <article class="card"><div class="toolbar"><h3>Upcoming</h3><span class="status"><span class="dot" id="runDot"></span><span id="runText">Stopped</span></span></div><div id="upcomingList" class="timeline"></div></article>
+          <article class="card"><h3 style="margin-top:0">Background delivery</h3><div class="notice warn">A service worker is not a permanent timer. If Chrome/PWA is fully closed, scheduled delivery is not guaranteed. Reliable closed-app delivery needs Web Push from a server.</div><div class="notice" style="margin-top:10px">On Xiaomi/POCO, battery optimization, background restrictions, Android notification settings and DND can affect delivery.</div></article>
+        </div>
+      </section>
+
+      <section class="section" id="people">
+        <div class="toolbar"><h3>People</h3><div class="row"><button class="btn" id="loadDemoBtn">Load Demo</button><button class="btn primary" id="addPersonBtn">Add Person</button></div></div>
+        <div id="peopleList" class="list"></div>
+      </section>
+
+      <section class="section" id="messages">
+        <div class="toolbar"><h3>Notifications</h3><div class="row"><input class="search" id="searchInput" placeholder="Search person or message" /><select id="statusFilter" style="width:auto"><option value="all">All</option><option value="enabled">Enabled</option><option value="disabled">Disabled</option></select><button class="btn primary" id="addMessageBtn">Add Notification</button></div></div>
+        <div class="tablewrap"><table><thead><tr><th>Person</th><th>Message</th><th>Schedule</th><th>Repeat</th><th>Priority</th><th>Status</th><th>Actions</th></tr></thead><tbody id="messagesBody"></tbody></table></div>
+      </section>
+
+      <section class="section" id="schedule">
+        <div class="toolbar"><h3>Calculated Schedule</h3><div class="row"><button class="btn" id="skipNextBtn">Skip Next</button><button class="btn" id="nextNowBtn">Deliver Next Now</button></div></div>
+        <div class="notice">Times use the device/browser local timezone: <strong id="timezoneText"></strong>.</div>
+        <div class="card" style="margin-top:14px"><div id="scheduleTimeline" class="timeline"></div></div>
+      </section>
+
+      <section class="section" id="preview">
+        <div class="hero">
+          <article class="card"><h3 style="margin-top:0">Live Preview</h3><div class="preview-phone"><div class="preview-screen"><div class="sysnote"><div class="icon" id="pvIcon">NS</div><div><div class="app-label">Notification Simulator</div><strong id="pvName">Person</strong><div class="body" id="pvMessage">Your message will appear here.</div></div><time id="pvTime">now</time></div></div></div></article>
+          <article class="card"><h3 style="margin-top:0">Preview Controls</h3><div class="form-grid"><div class="field full"><label>Person</label><select id="pvPerson"></select></div><div class="field full"><label>Message</label><textarea id="pvMessageInput" placeholder="Preview message"></textarea></div><div class="field"><label>Sound</label><select id="pvSound"><option>New Message</option><option>Multiple Messages</option><option>Call</option><option>Enquiry</option></select></div><div class="field"><label>Vibration</label><select id="pvVibe"><option>Default</option><option>Short</option><option>Long</option><option>Off</option></select></div></div><div class="row" style="margin-top:14px"><button class="btn" id="previewSoundBtn">Test Sound</button><button class="btn primary" id="previewSystemBtn">Test System Notification</button></div></article>
+        </div>
+      </section>
+
+      <section class="section" id="history">
+        <div class="toolbar"><h3>History</h3><div class="row"><button class="btn" id="exportBtn">Export Schedule</button><label class="btn" for="importFile">Import Schedule</label><input id="importFile" type="file" accept="application/json" hidden /><button class="btn danger" id="clearHistoryBtn">Clear History</button></div></div>
+        <div class="tablewrap"><table><thead><tr><th>Scheduled</th><th>Delivered</th><th>Person</th><th>Message</th><th>Status</th></tr></thead><tbody id="historyBody"></tbody></table></div>
+      </section>
+
+      <section class="section" id="pwa">
+        <div class="toolbar"><h3>PWA & Android Status</h3><div class="row"><button class="btn" id="refreshPwaBtn">Refresh Status</button></div></div>
+        <div class="status-grid">
+          <div class="status-box"><div class="k">PWA Installed</div><div class="v" id="sInstalled">No / browser tab</div></div>
+          <div class="status-box"><div class="k">Notification Permission</div><div class="v" id="sPermission">Not asked</div></div>
+          <div class="status-box"><div class="k">Service Worker</div><div class="v" id="sSw">Inactive</div></div>
+          <div class="status-box"><div class="k">Push Support</div><div class="v" id="sPush">Checking</div></div>
+          <div class="status-box"><div class="k">Sound</div><div class="v" id="sSound">Disabled</div></div>
+          <div class="status-box"><div class="k">Background Support</div><div class="v" id="sBg">Limited</div></div>
+        </div>
+        <div class="card" style="margin-top:16px"><h3 style="margin-top:0">How Android behaves</h3><p class="muted">Android notification behaviour depends on Chrome, Android version, permission settings, battery optimization and device settings. On Xiaomi/POCO devices, allow notifications and background activity where Android settings require it.</p><p class="muted">System notification sounds are controlled by Android/browser notification settings. This simulator cannot override silent mode, DND or notification-channel restrictions.</p></div>
+      </section>
+
+      <section class="section" id="settings">
+        <div class="hero">
+          <article class="card"><h3 style="margin-top:0">General</h3><div class="form-grid"><div class="field"><label>Demo app label</label><input id="appLabelInput" value="Notification Simulator" /></div><div class="field"><label>Theme</label><select id="themeSelect"><option value="light">Light</option><option value="dark">Dark</option></select></div><div class="field"><label>Default sound</label><select id="defaultSound"><option>New Message</option><option>Multiple Messages</option><option>Call</option><option>Enquiry</option></select></div><div class="field"><label>Default vibration</label><select id="defaultVibration"><option>Default</option><option>Short</option><option>Long</option><option>Off</option></select></div></div><div class="row" style="margin-top:14px"><button class="btn primary" id="saveSettingsBtn">Save Settings</button><button class="btn danger" id="resetBtn">Reset All</button></div></article>
+          <article class="card"><h3 style="margin-top:0">Future Push Backend</h3><div class="form-grid"><div class="field"><label>Push enabled</label><select id="pushEnabled"><option value="false">Off</option><option value="true">On</option></select></div><div class="field full"><label>Push server endpoint</label><input id="pushEndpoint" placeholder="PASTE_PUSH_ENDPOINT_HERE" /></div><div class="field full"><label>Public VAPID key</label><input id="vapidKey" placeholder="PASTE_PUBLIC_VAPID_KEY_HERE" /></div></div><div class="notice warn" style="margin-top:12px">This project does not include a push server. Turning this on only stores configuration for future integration; it does not fake background push delivery.</div></article>
+        </div>
+        <article class="card"><h3 style="margin-top:0">Privacy & security</h3><p class="muted">Schedules are stored locally in this browser unless you later connect a push service. Do not enter passwords, banking data, private credentials or real WhatsApp login information.</p></article>
+      </section>
+    </main>
+  </div>
+</div>
+
+<dialog id="personDialog"><form method="dialog" class="modal" id="personForm"><div class="modal-head"><h3 id="personDialogTitle">Add Person</h3><button class="close" value="cancel" aria-label="Close">×</button></div><input type="hidden" id="personId" /><div class="form-grid"><div class="field"><label>Name *</label><input id="personName" required /></div><div class="field"><label>Subtitle</label><input id="personSubtitle" placeholder="Friend / Office / Family" /></div><div class="field full"><label>Profile image</label><input id="personImage" type="file" accept="image/*" /></div><div class="field"><label>Status</label><select id="personEnabled"><option value="true">Enabled</option><option value="false">Disabled</option></select></div></div><div class="row" style="justify-content:flex-end;margin-top:16px"><button class="btn" value="cancel">Cancel</button><button type="button" class="btn primary" id="savePersonBtn">Save Person</button></div></form></dialog>
+
+<dialog id="messageDialog"><form method="dialog" class="modal" id="messageForm"><div class="modal-head"><h3 id="messageDialogTitle">Add Notification</h3><button class="close" value="cancel" aria-label="Close">×</button></div><input type="hidden" id="messageId" /><div class="form-grid"><div class="field"><label>Person *</label><select id="messagePerson"></select></div><div class="field"><label>Mode</label><select id="scheduleMode"><option value="absolute">Absolute date/time</option><option value="relative">Relative delay</option></select></div><div class="field full"><label>Message *</label><textarea id="messageText" required></textarea></div><div class="field absoluteField"><label>Date</label><input id="messageDate" type="date" /></div><div class="field absoluteField"><label>Time</label><input id="messageTime" type="time" /></div><div class="field relativeField" hidden><label>Delay after Start (seconds)</label><input id="messageDelay" type="number" min="0" step="1" value="10" /></div><div class="field"><label>Repeat</label><select id="repeatMode"><option value="once">Once</option><option value="count">Repeat count</option><option value="until">Repeat until stopped</option></select></div><div class="field"><label>Repeat count</label><input id="repeatCount" type="number" min="1" value="1" /></div><div class="field"><label>Repeat interval (seconds)</label><input id="repeatInterval" type="number" min="0" value="60" /></div><div class="field"><label>Random interval</label><select id="randomEnabled"><option value="false">Off</option><option value="true">On</option></select></div><div class="field"><label>Minimum random interval (sec)</label><input id="minDelay" type="number" min="0" value="10" /></div><div class="field"><label>Maximum random interval (sec)</label><input id="maxDelay" type="number" min="0" value="30" /></div><div class="field"><label>Sound</label><select id="messageSound"><option>New Message</option><option>Multiple Messages</option><option>Call</option><option>Enquiry</option></select></div><div class="field"><label>Vibration</label><select id="messageVibration"><option>Default</option><option>Short</option><option>Long</option><option>Off</option></select></div><div class="field"><label>Priority</label><select id="messagePriority"><option>Low</option><option selected>Normal</option><option>High</option></select></div><div class="field"><label>Status</label><select id="messageEnabled"><option value="true">Enabled</option><option value="false">Disabled</option></select></div></div><div class="row" style="justify-content:flex-end;margin-top:16px"><button class="btn" value="cancel">Cancel</button><button type="button" class="btn" id="testMessageBtn">Test</button><button type="button" class="btn primary" id="saveMessageBtn">Save Notification</button></div></form></dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+// ============================
+// CONFIGURATION
+// ============================
+const CONFIG_VERSION = 1;
+const STORAGE_KEY = 'notification-simulator-pwa-v1';
+const PUSH_ENDPOINT = 'PASTE_PUSH_ENDPOINT_HERE';
+const BACKGROUND_PUSH_MODE = false;
+
+// ============================
+// DEFAULT DATA / STATE
+// ============================
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const nowLocalDate = () => new Date().toISOString().slice(0,10);
+const uid = (p='id') => `${p}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2,8)}`;
+const defaultState = () => ({
+  version: CONFIG_VERSION,
+  people: [],
+  notifications: [],
+  history: [],
+  settings:{theme:'light',appLabel:'Notification Simulator',soundEnabled:false,defaultSound:'New Message',defaultVibration:'Default',pushEnabled:false,pushEndpoint:'',vapidKey:''}
+});
+let data = loadData();
+let installPrompt = null;
+let audioCtx = null;
+let scheduler = {status:'stopped',events:[],runStartedAt:null,pauseStartedAt:null,totalPaused:0,delivered:0,skipped:new Set(),tickTimer:null};
+
+// ============================
+// STORAGE
+// ============================
+function loadData(){try{const raw=localStorage.getItem(STORAGE_KEY);if(!raw)return defaultState();const parsed=JSON.parse(raw);if(parsed.version!==CONFIG_VERSION)return defaultState();return {...defaultState(),...parsed,settings:{...defaultState().settings,...parsed.settings}}}catch{return defaultState()}}
+function saveData(){localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}
+function toast(msg){const el=$('#toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2200)}
+
+// ============================
+// PEOPLE MANAGEMENT
+// ============================
+function renderPeople(){
+  const box=$('#peopleList'); box.innerHTML='';
+  if(!data.people.length){box.innerHTML='<div class="notice">No people yet. Add a person or load the demo.</div>';return}
+  data.people.forEach(p=>{
+    const count=data.notifications.filter(n=>n.personId===p.id).length;
+    const row=document.createElement('article');row.className='item';
+    row.innerHTML=`<div class="avatar">${p.image?`<img src="${p.image}" alt="">`:escapeHtml(p.name.slice(0,2).toUpperCase())}</div><div><h4>${escapeHtml(p.name)}</h4><div class="meta">${escapeHtml(p.subtitle||'No subtitle')} · ${count} notification(s) · ${p.enabled?'Enabled':'Disabled'}</div></div><div class="row"><button class="btn small" data-edit-person="${p.id}">Edit</button><button class="btn small" data-toggle-person="${p.id}">${p.enabled?'Disable':'Enable'}</button><button class="btn small danger" data-delete-person="${p.id}">Delete</button></div>`;
+    box.appendChild(row);
+  });
+}
+function openPerson(id=''){
+  const p=data.people.find(x=>x.id===id);$('#personDialogTitle').textContent=p?'Edit Person':'Add Person';$('#personId').value=p?.id||'';$('#personName').value=p?.name||'';$('#personSubtitle').value=p?.subtitle||'';$('#personEnabled').value=String(p?.enabled??true);$('#personImage').value='';$('#personDialog').showModal();
+}
+async function imageToDataUrl(file){if(!file)return null;const img=await createImageBitmap(file);const max=256;const scale=Math.min(1,max/Math.max(img.width,img.height));const c=document.createElement('canvas');c.width=Math.round(img.width*scale);c.height=Math.round(img.height*scale);c.getContext('2d').drawImage(img,0,0,c.width,c.height);return c.toDataURL('image/jpeg',.78)}
+async function savePerson(){const name=$('#personName').value.trim();if(!name)return toast('Please enter a person name.');const id=$('#personId').value;const existing=data.people.find(p=>p.id===id);let image=existing?.image||'';const file=$('#personImage').files[0];if(file){try{image=await imageToDataUrl(file)}catch{return toast('Could not process that image.')}}const person={id:id||uid('person'),name,subtitle:$('#personSubtitle').value.trim(),image,enabled:$('#personEnabled').value==='true'};if(existing)Object.assign(existing,person);else data.people.push(person);saveData();$('#personDialog').close();renderAll();}
+
+// ============================
+// MESSAGE MANAGEMENT
+// ============================
+function personById(id){return data.people.find(p=>p.id===id)}
+function renderPersonSelects(){const opts=data.people.filter(p=>p.enabled).map(p=>`<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('');['#messagePerson','#pvPerson'].forEach(s=>{$(s).innerHTML=opts||'<option value="">No people available</option>'});}
+function openMessage(id=''){
+  if(!data.people.length){toast('Add a person first.');return}
+  const n=data.notifications.find(x=>x.id===id);$('#messageDialogTitle').textContent=n?'Edit Notification':'Add Notification';$('#messageId').value=n?.id||'';renderPersonSelects();$('#messagePerson').value=n?.personId||data.people[0].id;$('#messageText').value=n?.message||'';$('#scheduleMode').value=n?.scheduleMode||'absolute';$('#messageDate').value=n?.date||nowLocalDate();$('#messageTime').value=n?.time||new Date(Date.now()+60000).toTimeString().slice(0,5);$('#messageDelay').value=n?.delaySec??10;$('#repeatMode').value=n?.repeatMode||'once';$('#repeatCount').value=n?.repeatCount??1;$('#repeatInterval').value=n?.repeatInterval??60;$('#randomEnabled').value=String(n?.randomEnabled??false);$('#minDelay').value=n?.minDelay??10;$('#maxDelay').value=n?.maxDelay??30;$('#messageSound').value=n?.sound||data.settings.defaultSound;$('#messageVibration').value=n?.vibration||data.settings.defaultVibration;$('#messagePriority').value=n?.priority||'Normal';$('#messageEnabled').value=String(n?.enabled??true);toggleScheduleFields();$('#messageDialog').showModal();
+}
+function toggleScheduleFields(){const abs=$('#scheduleMode').value==='absolute';$$('.absoluteField').forEach(e=>e.hidden=!abs);$$('.relativeField').forEach(e=>e.hidden=abs)}
+function validateMessageForm(){if(!$('#messagePerson').value)return 'Please select a person.';if(!$('#messageText').value.trim())return 'Please enter a message.';if($('#scheduleMode').value==='absolute'&&(!$('#messageDate').value||!$('#messageTime').value))return 'Please select date and time.';if(+$(' #repeatInterval'.trim()).value<0)return 'Repeat interval cannot be negative.';if(+$('#minDelay').value>+$('#maxDelay').value)return 'Minimum delay cannot be greater than maximum delay.';return ''}
+function formToMessage(){const id=$('#messageId').value;return {id:id||uid('msg'),personId:$('#messagePerson').value,message:$('#messageText').value.trim(),scheduleMode:$('#scheduleMode').value,date:$('#messageDate').value,time:$('#messageTime').value,delaySec:+$('#messageDelay').value||0,repeatMode:$('#repeatMode').value,repeatCount:Math.max(1,+$('#repeatCount').value||1),repeatInterval:Math.max(0,+$('#repeatInterval').value||0),randomEnabled:$('#randomEnabled').value==='true',minDelay:Math.max(0,+$('#minDelay').value||0),maxDelay:Math.max(0,+$('#maxDelay').value||0),sound:$('#messageSound').value,vibration:$('#messageVibration').value,priority:$('#messagePriority').value,enabled:$('#messageEnabled').value==='true'} }
+function saveMessage(){const err=validateMessageForm();if(err)return toast(err);const m=formToMessage();const old=data.notifications.find(x=>x.id===m.id);if(old)Object.assign(old,m);else data.notifications.push(m);saveData();stopScheduler();$('#messageDialog').close();renderAll();}
+function renderMessages(){const q=$('#searchInput').value.trim().toLowerCase();const f=$('#statusFilter').value;const rows=data.notifications.filter(n=>{const p=personById(n.personId);const okQ=!q||(p?.name||'').toLowerCase().includes(q)||n.message.toLowerCase().includes(q);const okF=f==='all'||(f==='enabled'&&n.enabled)||(f==='disabled'&&!n.enabled);return okQ&&okF});$('#messagesBody').innerHTML=rows.map(n=>{const p=personById(n.personId);return `<tr><td>${escapeHtml(p?.name||'Missing person')}</td><td class="msg">${escapeHtml(n.message)}</td><td class="nowrap">${escapeHtml(humanSchedule(n))}</td><td>${escapeHtml(n.repeatMode==='once'?'Once':n.repeatMode==='count'?`${n.repeatCount}× / ${n.repeatInterval}s`:'Until stopped')}</td><td>${n.priority}</td><td>${n.enabled?'Enabled':'Disabled'}</td><td class="nowrap"><button class="btn small" data-edit-msg="${n.id}">Edit</button> <button class="btn small" data-test-msg="${n.id}">Test</button> <button class="btn small" data-toggle-msg="${n.id}">${n.enabled?'Disable':'Enable'}</button> <button class="btn small danger" data-delete-msg="${n.id}">Delete</button></td></tr>`}).join('')||'<tr><td colspan="7" class="muted">No notifications found.</td></tr>';}
+function humanSchedule(n){if(n.scheduleMode==='relative')return `${n.delaySec}s after start`;const d=new Date(`${n.date}T${n.time}`);return isNaN(d)?'Invalid time':d.toLocaleString()}
+
+// ============================
+// SCHEDULER ENGINE
+// ============================
+function priorityWeight(p){return p==='High'?3:p==='Normal'?2:1}
+function buildEvents(){
+  const events=[]; const runBase=Date.now();
+  for(const n of data.notifications){if(!n.enabled)continue;const person=personById(n.personId);if(!person?.enabled)continue;let first=n.scheduleMode==='relative'?runBase+n.delaySec*1000:new Date(`${n.date}T${n.time}`).getTime();if(!Number.isFinite(first))continue;let count=n.repeatMode==='count'?n.repeatCount:1;if(n.repeatMode==='until')count=200; // finite local horizon; scheduler keeps regenerating after restart
+    let t=first;for(let i=0;i<count;i++){if(i>0){const interval=n.randomEnabled?rand(n.minDelay,n.maxDelay):n.repeatInterval;t+=interval*1000}events.push({eventId:uid('evt'),notificationId:n.id,personId:n.personId,message:n.message,scheduledAt:t,sound:n.sound,vibration:n.vibration,priority:n.priority,status:'pending',repeatIndex:i});}
+  }
+  return events.sort((a,b)=>a.scheduledAt-b.scheduledAt||priorityWeight(b.priority)-priorityWeight(a.priority));
+}
+function startScheduler(){if(scheduler.status==='running')return toast('Schedule is already running.');scheduler.events=buildEvents();scheduler.runStartedAt=Date.now();scheduler.totalPaused=0;scheduler.delivered=0;scheduler.skipped=new Set();scheduler.status='running';tickScheduler();scheduler.tickTimer=setInterval(tickScheduler,500);renderAll();toast('Schedule started.');}
+function pauseScheduler(){if(scheduler.status!=='running')return;scheduler.status='paused';scheduler.pauseStartedAt=Date.now();renderAll();}
+function resumeScheduler(){if(scheduler.status!=='paused')return;const delta=Date.now()-scheduler.pauseStartedAt;scheduler.totalPaused+=delta;scheduler.events.filter(e=>e.status==='pending').forEach(e=>e.scheduledAt+=delta);scheduler.status='running';renderAll();}
+function stopScheduler(){if(scheduler.tickTimer){clearInterval(scheduler.tickTimer);scheduler.tickTimer=null}scheduler.status='stopped';scheduler.events=[];renderAll();}
+function restartScheduler(){stopScheduler();startScheduler();}
+async function tickScheduler(){if(scheduler.status!=='running')return;const now=Date.now();for(const e of scheduler.events.filter(x=>x.status==='pending'&&x.scheduledAt<=now)){if(scheduler.skipped.has(e.eventId)){e.status='skipped';continue}await deliverEvent(e)}if(scheduler.events.length&&scheduler.events.every(e=>e.status!=='pending')){scheduler.status='completed';if(scheduler.tickTimer){clearInterval(scheduler.tickTimer);scheduler.tickTimer=null}}renderDashboardBits();renderSchedule();}
+async function deliverEvent(e){const n=data.notifications.find(x=>x.id===e.notificationId);const p=personById(e.personId);if(!n||!p){e.status='failed';return}const ok=await showSystemNotification(p,n);e.status=ok?'delivered':'failed';scheduler.delivered+=ok?1:0;data.history.unshift({id:uid('hist'),notificationId:n.id,person:p.name,message:n.message,scheduledAt:e.scheduledAt,deliveredAt:Date.now(),status:ok?'Delivered':'Failed'});data.history=data.history.slice(0,500);saveData();}
+function nextPending(){return scheduler.events.find(e=>e.status==='pending')}
+function skipNext(){const e=nextPending();if(!e)return toast('No pending event.');e.status='skipped';data.history.unshift({id:uid('hist'),notificationId:e.notificationId,person:personById(e.personId)?.name||'',message:e.message,scheduledAt:e.scheduledAt,deliveredAt:null,status:'Skipped'});saveData();renderAll();}
+async function deliverNextNow(){const e=nextPending();if(!e)return toast('No pending event.');e.scheduledAt=Date.now();await tickScheduler()}
+
+// ============================
+// NOTIFICATION DISPLAY / SERVICE WORKER
+// ============================
+async function ensurePermission(){if(!('Notification' in window)){toast('Notifications are not supported in this browser.');return false}if(Notification.permission==='granted')return true;const result=await Notification.requestPermission();renderPwaStatus();if(result!=='granted'){toast('Notification permission was not granted.');return false}toast('Notifications enabled.');return true}
+async function getSwReg(){if(!('serviceWorker' in navigator))return null;try{return await navigator.serviceWorker.ready}catch{return null}}
+function vibrationPattern(type){if(type==='Off')return [];if(type==='Short')return [80,50,80];if(type==='Long')return [250,100,250];return [120,60,120]}
+async function showSystemNotification(person,n){if(!(await ensurePermission()))return false;const reg=await getSwReg();const payload={type:'SHOW_NOTIFICATION',title:person.name,options:{body:n.message,icon:person.image||undefined,badge:undefined,tag:`sim-${n.id}-${Date.now()}`,renotify:true,timestamp:Date.now(),vibrate:vibrationPattern(n.vibration),data:{notificationId:n.id,personId:person.id,url:`./?notification=${encodeURIComponent(n.id)}`},actions:[{action:'open',title:'Open'},{action:'dismiss',title:'Dismiss'}]}};try{if(reg?.active){reg.active.postMessage(payload)}else new Notification(person.name,{body:n.message,icon:person.image||undefined,tag:payload.options.tag});if(data.settings.soundEnabled)playTone(n.sound);return true}catch(err){console.error(err);toast('System notification could not be shown.');return false}}
+async function testCurrentMessage(){const m=formToMessage();const p=personById(m.personId);if(!p)return toast('Please select a person.');await showSystemNotification(p,m)}
+
+// ============================
+// AUDIO
+// ============================
+async function enableSound(){try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();await audioCtx.resume();data.settings.soundEnabled=true;saveData();renderPwaStatus();toast('Sound enabled for in-app/test tones.')}catch{toast('Audio could not be enabled.')}}
+function playTone(type='New Message'){if(!data.settings.soundEnabled)return;audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();const patterns={"New Message":[660,880],"Multiple Messages":[660,880,990],"Call":[440,550,660,550],"Enquiry":[520,780]};const notes=patterns[type]||patterns['New Message'];let t=audioCtx.currentTime;for(const f of notes){const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.frequency.value=f;o.type='sine';g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.12,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+.16);o.connect(g).connect(audioCtx.destination);o.start(t);o.stop(t+.18);t+=.19}}
+
+// ============================
+// PREVIEW / HISTORY / IMPORT EXPORT
+// ============================
+function updatePreview(){const p=personById($('#pvPerson').value)||data.people[0];const msg=$('#pvMessageInput').value||'Your message will appear here.';$('#pvName').textContent=p?.name||'Person';$('#pvMessage').textContent=msg;$('#pvTime').textContent=new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});$('#pvIcon').innerHTML=p?.image?`<img src="${p.image}" alt="">`:'NS'}
+function renderHistory(){$('#historyBody').innerHTML=data.history.map(h=>`<tr><td>${h.scheduledAt?new Date(h.scheduledAt).toLocaleString():'—'}</td><td>${h.deliveredAt?new Date(h.deliveredAt).toLocaleString():'—'}</td><td>${escapeHtml(h.person)}</td><td class="msg">${escapeHtml(h.message)}</td><td>${escapeHtml(h.status)}</td></tr>`).join('')||'<tr><td colspan="5" class="muted">No history yet.</td></tr>'}
+function exportConfig(){const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='notification-schedule.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+async function importConfig(file){try{const parsed=JSON.parse(await file.text());if(parsed.version!==CONFIG_VERSION||!Array.isArray(parsed.people)||!Array.isArray(parsed.notifications))throw new Error('Invalid structure');for(const n of parsed.notifications){if(typeof n.id!=='string'||typeof n.personId!=='string'||typeof n.message!=='string')throw new Error('Invalid notification data')}data={...defaultState(),...parsed,settings:{...defaultState().settings,...parsed.settings}};saveData();stopScheduler();renderAll();toast('Schedule imported.')}catch{toast('Invalid configuration file.')}}
+
+// ============================
+// PWA / STATUS / SETTINGS
+// ============================
+async function registerSw(){if('serviceWorker' in navigator){try{await navigator.serviceWorker.register('sw.js',{scope:'./'});await navigator.serviceWorker.ready}catch(e){console.warn('SW registration failed',e)}}renderPwaStatus()}
+function isStandalone(){return window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true}
+async function renderPwaStatus(){const perm=('Notification'in window)?Notification.permission:'unsupported';$('#sInstalled').textContent=isStandalone()?'Yes':'No / browser tab';$('#sPermission').textContent=perm==='default'?'Not asked':cap(perm);$('#permMini').textContent=perm==='default'?'Not asked':cap(perm);const reg=await navigator.serviceWorker?.getRegistration?.();$('#sSw').textContent=reg?.active?'Active':'Inactive';$('#sPush').textContent=('PushManager'in window)?'Available':'Not available';$('#sSound').textContent=data.settings.soundEnabled?'Enabled':'Disabled';$('#sBg').textContent=data.settings.pushEnabled&&data.settings.pushEndpoint?'Requires push server':'Limited';}
+function applySettings(){document.documentElement.dataset.theme=data.settings.theme;$('#themeSelect').value=data.settings.theme;$('#appLabelInput').value=data.settings.appLabel;$('#defaultSound').value=data.settings.defaultSound;$('#defaultVibration').value=data.settings.defaultVibration;$('#pushEnabled').value=String(data.settings.pushEnabled);$('#pushEndpoint').value=data.settings.pushEndpoint||'';$('#vapidKey').value=data.settings.vapidKey||''}
+function saveSettings(){data.settings.theme=$('#themeSelect').value;data.settings.appLabel=$('#appLabelInput').value.trim()||'Notification Simulator';data.settings.defaultSound=$('#defaultSound').value;data.settings.defaultVibration=$('#defaultVibration').value;data.settings.pushEnabled=$('#pushEnabled').value==='true';data.settings.pushEndpoint=$('#pushEndpoint').value.trim();data.settings.vapidKey=$('#vapidKey').value.trim();saveData();applySettings();renderPwaStatus();toast('Settings saved.');}
+
+// ============================
+// DEMO DATA
+// ============================
+function loadDemo(){const names=[['Rahul','Friend'],['Mom','Family'],['Sarah','Friend'],['Office','Work']];data.people=names.map(([name,subtitle])=>({id:uid('person'),name,subtitle,image:'',enabled:true}));const base=new Date(Date.now()+2*60000);const samples=[['Rahul','Hey bro',0],['Mom','Where are you?',3],['Rahul','Call me.',7],['Sarah','Are you free?',12],['Office','Meeting starts soon.',20]];data.notifications=samples.map(([name,message,mins])=>{const p=data.people.find(x=>x.name===name);const d=new Date(base.getTime()+mins*60000);return{id:uid('msg'),personId:p.id,message,scheduleMode:'absolute',date:d.toISOString().slice(0,10),time:d.toTimeString().slice(0,5),delaySec:0,repeatMode:'once',repeatCount:1,repeatInterval:60,randomEnabled:false,minDelay:10,maxDelay:30,sound:'New Message',vibration:'Default',priority:'Normal',enabled:true}});data.history=[];saveData();stopScheduler();renderAll();toast('Demo loaded.');}
+
+// ============================
+// RENDERING
+// ============================
+function renderDashboardBits(){const pending=scheduler.events.filter(e=>e.status==='pending').length;$('#mPeople').textContent=data.people.length;$('#mScheduled').textContent=data.notifications.filter(n=>n.enabled).length;$('#mDelivered').textContent=data.history.filter(h=>h.status==='Delivered').length;$('#mPending').textContent=scheduler.status==='running'||scheduler.status==='paused'?pending:data.notifications.filter(n=>n.enabled).length;$('#schedulerStatus').textContent=cap(scheduler.status);$('#runText').textContent=cap(scheduler.status);$('#runDot').className='dot '+(scheduler.status==='running'?'ok':scheduler.status==='paused'?'warn':'');const next=nextPending();$('#nextIn').textContent=next?formatDelta(next.scheduledAt-Date.now()):'—';const up=scheduler.events.length?scheduler.events.filter(e=>e.status==='pending').slice(0,6):buildEvents().filter(e=>e.scheduledAt>=Date.now()).slice(0,6);$('#upcomingList').innerHTML=up.map(e=>`<div class="tick"><div class="time">${new Date(e.scheduledAt).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'})}</div><div><strong>${escapeHtml(personById(e.personId)?.name||'Unknown')}</strong><div class="meta">${escapeHtml(e.message)}</div></div><span class="status">${e.priority}</span></div>`).join('')||'<div class="muted">No upcoming events.</div>'}
+function renderSchedule(){const events=scheduler.events.length?scheduler.events:buildEvents();$('#scheduleTimeline').innerHTML=events.slice(0,100).map(e=>`<div class="tick"><div class="time">${new Date(e.scheduledAt).toLocaleString()}</div><div><strong>${escapeHtml(personById(e.personId)?.name||'Unknown')}</strong><div class="meta">${escapeHtml(e.message)}</div></div><span class="status">${escapeHtml(e.status||'pending')}</span></div>`).join('')||'<div class="muted">No schedule entries.</div>'}
+function renderAll(){renderPeople();renderPersonSelects();renderMessages();renderHistory();renderDashboardBits();renderSchedule();updatePreview();applySettings();renderPwaStatus();$('#timezoneText').textContent=Intl.DateTimeFormat().resolvedOptions().timeZone||'Local time'}
+
+// ============================
+// EVENT LISTENERS
+// ============================
+$('#nav').addEventListener('click',e=>{const b=e.target.closest('button[data-section]');if(!b)return;$$('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');$$('.section').forEach(x=>x.classList.remove('active'));$('#'+b.dataset.section).classList.add('active');$('#sectionTitle').textContent=b.textContent;$('#sidebar').classList.remove('open')});
+$('#menuBtn').onclick=()=>$('#sidebar').classList.toggle('open');
+$('#addPersonBtn').onclick=()=>openPerson();$('#savePersonBtn').onclick=savePerson;
+$('#peopleList').onclick=e=>{const id=e.target.dataset.editPerson||e.target.dataset.togglePerson||e.target.dataset.deletePerson;if(!id)return;if(e.target.dataset.editPerson)openPerson(id);if(e.target.dataset.togglePerson){const p=personById(id);p.enabled=!p.enabled;saveData();renderAll()}if(e.target.dataset.deletePerson){if(confirm('Delete this person and their notifications?')){data.people=data.people.filter(p=>p.id!==id);data.notifications=data.notifications.filter(n=>n.personId!==id);saveData();stopScheduler();renderAll()}}};
+$('#addMessageBtn').onclick=()=>openMessage();$('#saveMessageBtn').onclick=saveMessage;$('#testMessageBtn').onclick=testCurrentMessage;$('#scheduleMode').onchange=toggleScheduleFields;
+$('#messagesBody').onclick=async e=>{const id=e.target.dataset.editMsg||e.target.dataset.testMsg||e.target.dataset.toggleMsg||e.target.dataset.deleteMsg;if(!id)return;const n=data.notifications.find(x=>x.id===id);if(e.target.dataset.editMsg)openMessage(id);if(e.target.dataset.testMsg)await showSystemNotification(personById(n.personId),n);if(e.target.dataset.toggleMsg){n.enabled=!n.enabled;saveData();stopScheduler();renderAll()}if(e.target.dataset.deleteMsg){if(confirm('Delete this notification?')){data.notifications=data.notifications.filter(x=>x.id!==id);saveData();stopScheduler();renderAll()}}};
+$('#searchInput').oninput=renderMessages;$('#statusFilter').onchange=renderMessages;
+$('#startBtn').onclick=startScheduler;$('#pauseBtn').onclick=pauseScheduler;$('#resumeBtn').onclick=resumeScheduler;$('#stopBtn').onclick=stopScheduler;$('#restartBtn').onclick=restartScheduler;$('#skipNextBtn').onclick=skipNext;$('#nextNowBtn').onclick=deliverNextNow;
+$('#enableNotifBtn').onclick=ensurePermission;$('#enableSoundBtn').onclick=enableSound;$('#testSystemBtn').onclick=async()=>{const p=data.people[0]||{id:'demo',name:'Notification Simulator',image:''};await showSystemNotification(p,{id:uid('test'),message:'This is a system notification test.',sound:'New Message',vibration:'Default'})};
+$('#loadDemoBtn').onclick=()=>{if(confirm('Replace current people and notifications with demo data?'))loadDemo()};
+$('#pvPerson').onchange=updatePreview;$('#pvMessageInput').oninput=updatePreview;$('#previewSoundBtn').onclick=()=>{if(!data.settings.soundEnabled)return enableSound();playTone($('#pvSound').value)};$('#previewSystemBtn').onclick=async()=>{const p=personById($('#pvPerson').value);if(!p)return toast('Add a person first.');await showSystemNotification(p,{id:uid('preview'),message:$('#pvMessageInput').value||'Preview notification',sound:$('#pvSound').value,vibration:$('#pvVibe').value})};
+$('#exportBtn').onclick=exportConfig;$('#importFile').onchange=e=>e.target.files[0]&&importConfig(e.target.files[0]);$('#clearHistoryBtn').onclick=()=>{if(confirm('Clear notification history?')){data.history=[];saveData();renderHistory();renderDashboardBits()}};
+$('#refreshPwaBtn').onclick=renderPwaStatus;$('#saveSettingsBtn').onclick=saveSettings;$('#resetBtn').onclick=()=>{if(confirm('Reset all saved notification settings?')){localStorage.removeItem(STORAGE_KEY);data=defaultState();stopScheduler();renderAll();toast('Reset complete.')}};
+$('#themeBtn').onclick=()=>{data.settings.theme=data.settings.theme==='dark'?'light':'dark';saveData();applySettings()};
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;$('#installBtn').hidden=false});$('#installBtn').onclick=async()=>{if(!installPrompt)return;installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$('#installBtn').hidden=true;renderPwaStatus()};
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&scheduler.status==='running')tickScheduler()});
+window.addEventListener('keydown',e=>{if(e.key==='Escape')$$('dialog[open]').forEach(d=>d.close())});
+
+// ============================
+// HELPERS / INIT
+// ============================
+function rand(a,b){a=Math.max(0,+a||0);b=Math.max(a,+b||a);return Math.floor(Math.random()*(b-a+1))+a}
+function escapeHtml(s=''){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function cap(s){return s?String(s)[0].toUpperCase()+String(s).slice(1):''}
+function formatDelta(ms){if(ms<=0)return 'now';const s=Math.ceil(ms/1000);if(s<60)return `${s}s`;const m=Math.floor(s/60),r=s%60;return `${m}m ${r}s`}
+setInterval(()=>{if(scheduler.status==='running')renderDashboardBits()},500);
+registerSw();renderAll();
+</script>
+</body>
+</html>
