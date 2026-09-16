@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /internal/
+Disallow: /thank-you.html
+Sitemap: https://arezzifurniture.com/sitemap.xml
