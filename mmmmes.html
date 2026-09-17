@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp Notification Simulator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #111b21;
+      color: #e9edef;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: #202c33;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #2a3942;
+    }
+    header h1 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #e9edef;
+    }
+    .global-controls button {
+      background: #00a884;
+      color: #111b21;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-left: 8px;
+      font-size: 0.85rem;
+    }
+    .global-controls button.danger {
+      background: #f15c6d;
+    }
+    main {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .tabs button {
+      background: #2a3942;
+      border: none;
+      color: #8696a0;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .tabs button.active {
+      background: #00a884;
+      color: #111b21;
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Profile list */
+    .profile-card {
+      background: #202c33;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #2a3942;
+    }
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+    .profile-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #2a3942;
+    }
+    .profile-details h3 {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+    .profile-details p {
+      font-size: 0.8rem;
+      color: #8696a0;
+      margin-top: 2px;
+    }
+    .profile-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .profile-actions button {
+      background: transparent;
+      border: none;
+      color: #8696a0;
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 4px;
+    }
+    .profile-actions button.active {
+      color: #00a884;
+    }
+    .toggle-switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      background: #2a3942;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .toggle-switch.on { background: #00a884; }
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+    .toggle-switch.on::after { transform: translateX(20px); }
+
+    /* Form */
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      color: #8696a0;
+      margin-bottom: 6px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: #2a3942;
+      border: 1px solid #3b4a54;
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: #e9edef;
+      font-size: 0.95rem;
+      outline: none;
+    }
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .form-group input[type="file"] {
+      padding: 6px;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #00a884;
+    }
+    .btn-primary {
+      background: #00a884;
+      color: #111b21;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 24px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+      width: 100%;
+    }
+    .btn-primary:active { opacity: 0.8; }
+
+    /* In-app notification popup */
+    .wa-popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 360px;
+      max-width: 90vw;
+      background: #202c33;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      overflow: hidden;
+      z-index: 10000;
+      animation: slideIn 0.3s ease;
+      border: 1px solid #2a3942;
+    }
+    @keyframes slideIn {
+      from { transform: translateX(120%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(120%); opacity: 0; }
+    }
+    .wa-popup-header {
+      background: #00a884;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .wa-popup-header img {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .wa-popup-header span {
+      font-weight: 600;
+      color: #111b21;
+      font-size: 0.95rem;
+    }
+    .wa-popup-body {
+      padding: 12px 14px;
+      color: #e9edef;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+    .wa-popup-footer {
+      padding: 6px 14px 12px;
+      font-size: 0.7rem;
+      color: #8696a0;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>WhatsApp Notification Simulator</h1>
+    <div class="global-controls">
+      <button id="enableAll">Enable All</button>
+      <button id="disableAll" class="danger">Disable All</button>
+    </div>
+  </header>
+  <main>
+    <div class="tabs">
+      <button data-tab="profiles" class="active">Profiles</button>
+      <button data-tab="form">Add / Edit</button>
+    </div>
+
+    <div id="profiles-tab" class="tab-content active">
+      <div id="profileList"></div>
+    </div>
+
+    <div id="form-tab" class="tab-content">
+      <form id="profileForm">
+        <input type="hidden" id="editId" value="">
+        <div class="form-group">
+          <label>Profile Name</label>
+          <input type="text" id="profileName" required placeholder="e.g., Fake Friend">
+        </div>
+        <div class="form-group">
+          <label>Sender Name (shown in notification)</label>
+          <input type="text" id="senderName" required placeholder="e.g., John Doe">
+        </div>
+        <div class="form-group">
+          <label>Avatar Image (optional)</label>
+          <input type="file" id="avatarFile" accept="image/*">
+          <img id="avatarPreview" style="width:48px;height:48px;border-radius:50%;margin-top:8px;display:none;object-fit:cover;">
+        </div>
+        <div class="form-group">
+          <label>Messages (one per line)</label>
+          <textarea id="messages" required placeholder="Hello!&#10;How are you?&#10;This is a test."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Repeat Interval</label>
+          <select id="interval">
+            <option value="minute">Every Minute</option>
+            <option value="hour">Every Hour</option>
+            <option value="day">Every Day</option>
+            <option value="month">Every Month</option>
+            <option value="year">Every Year</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Messages per Interval (max 60 per minute)</label>
+          <input type="number" id="frequency" min="1" max="60" value="10" required>
+        </div>
+        <div class="form-group">
+          <label>Start Time</label>
+          <input type="datetime-local" id="startTime" required>
+        </div>
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="enabled" checked> Enable immediately
+          </label>
+        </div>
+        <button type="submit" class="btn-primary">Save Profile</button>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    // ---------- Data & Storage ----------
+    const STORAGE_KEY = 'whatsapp_sim_profiles';
+    let profiles = [];
+
+    function loadProfiles() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        try { profiles = JSON.parse(stored); } catch (e) { profiles = []; }
+      } else {
+        profiles = [];
+      }
+      renderProfileList();
+    }
+
+    function saveProfiles() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(profiles));
+    }
+
+    // ---------- Render Profile List ----------
+    function renderProfileList() {
+      const list = document.getElementById('profileList');
+      if (profiles.length === 0) {
+        list.innerHTML = '<p style="color:#8696a0;text-align:center;padding:40px 0;">No profiles yet. Create one in the "Add / Edit" tab.</p>';
+        return;
+      }
+      list.innerHTML = profiles.map(p => `
+        <div class="profile-card" data-id="${p.id}">
+          <div class="profile-info">
+            <img class="profile-avatar" src="${p.avatar || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect fill=%22%232a3942%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2250%22 y=%2255%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%236b7b85%22%3E%3F%3C/text%3E%3C/svg%3E'}" alt="">
+            <div class="profile-details">
+              <h3>${p.profileName}</h3>
+              <p>Sender: ${p.senderName} · ${p.interval} · ${p.frequency} msgs</p>
+            </div>
+          </div>
+          <div class="profile-actions">
+            <div class="toggle-switch ${p.enabled ? 'on' : ''}" onclick="toggleProfile('${p.id}')"></div>
+            <button onclick="editProfile('${p.id}')" title="Edit">✏️</button>
+            <button onclick="deleteProfile('${p.id}')" title="Delete">🗑️</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ---------- Toggle / Edit / Delete ----------
+    function toggleProfile(id) {
+      const p = profiles.find(x => x.id === id);
+      if (!p) return;
+      p.enabled = !p.enabled;
+      saveProfiles();
+      renderProfileList();
+      if (p.enabled) {
+        startScheduler(p);
+      } else {
+        stopScheduler(id);
+      }
+    }
+
+    function editProfile(id) {
+      const p = profiles.find(x => x.id === id);
+      if (!p) return;
+      document.getElementById('editId').value = p.id;
+      document.getElementById('profileName').value = p.profileName;
+      document.getElementById('senderName').value = p.senderName;
+      document.getElementById('messages').value = p.messages.join('\n');
+      document.getElementById('interval').value = p.interval;
+      document.getElementById('frequency').value = p.frequency;
+      document.getElementById('startTime').value = p.startTime;
+      document.getElementById('enabled').checked = p.enabled;
+      if (p.avatar) {
+        document.getElementById('avatarPreview').src = p.avatar;
+        document.getElementById('avatarPreview').style.display = 'block';
+      } else {
+        document.getElementById('avatarPreview').style.display = 'none';
+      }
+      // Switch to form tab
+      document.querySelector('[data-tab="form"]').click();
+    }
+
+    function deleteProfile(id) {
+      if (!confirm('Delete this profile?')) return;
+      stopScheduler(id);
+      profiles = profiles.filter(x => x.id !== id);
+      saveProfiles();
+      renderProfileList();
+    }
+
+    // ---------- Form Submission ----------
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const editId = document.getElementById('editId').value;
+      const profileName = document.getElementById('profileName').value.trim();
+      const senderName = document.getElementById('senderName').value.trim();
+      const messagesRaw = document.getElementById('messages').value.trim();
+      const interval = document.getElementById('interval').value;
+      const frequency = parseInt(document.getElementById('frequency').value, 10);
+      const startTime = document.getElementById('startTime').value;
+      const enabled = document.getElementById('enabled').checked;
+
+      if (!profileName || !senderName || !messagesRaw || !startTime) {
+        alert('Please fill all required fields.');
+        return;
+      }
+      if (frequency < 1 || frequency > 60) {
+        alert('Frequency must be between 1 and 60.');
+        return;
+      }
+
+      const messages = messagesRaw.split('\n').map(s => s.trim()).filter(Boolean);
+      if (messages.length === 0) {
+        alert('Please enter at least one message.');
+        return;
+      }
+
+      // Handle avatar
+      let avatar = null;
+      const fileInput = document.getElementById('avatarFile');
+      const preview = document.getElementById('avatarPreview');
+      if (fileInput.files && fileInput.files[0]) {
+        // We'll read as DataURL
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          avatar = ev.target.result;
+          saveProfile(editId, profileName, senderName, avatar, messages, interval, frequency, startTime, enabled);
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+        return; // Wait for reader
+      } else {
+        // Keep existing avatar if editing
+        if (editId) {
+          const existing = profiles.find(x => x.id === editId);
+          if (existing) avatar = existing.avatar;
+        }
+        saveProfile(editId, profileName, senderName, avatar, messages, interval, frequency, startTime, enabled);
+      }
+    });
+
+    function saveProfile(editId, profileName, senderName, avatar, messages, interval, frequency, startTime, enabled) {
+      if (editId) {
+        // Update
+        const p = profiles.find(x => x.id === editId);
+        if (p) {
+          stopScheduler(p.id);
+          p.profileName = profileName;
+          p.senderName = senderName;
+          p.avatar = avatar;
+          p.messages = messages;
+          p.interval = interval;
+          p.frequency = frequency;
+          p.startTime = startTime;
+          p.enabled = enabled;
+        }
+      } else {
+        // Create new
+        const newProfile = {
+          id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5),
+          profileName,
+          senderName,
+          avatar,
+          messages,
+          interval,
+          frequency,
+          startTime,
+          enabled
+        };
+        profiles.push(newProfile);
+      }
+      saveProfiles();
+      renderProfileList();
+      // Reset form
+      document.getElementById('profileForm').reset();
+      document.getElementById('editId').value = '';
+      document.getElementById('avatarPreview').style.display = 'none';
+      document.querySelector('[data-tab="profiles"]').click();
+
+      // Start scheduler if enabled
+      const saved = profiles.find(x => x.profileName === profileName && x.senderName === senderName);
+      if (saved && saved.enabled) {
+        startScheduler(saved);
+      }
+    }
+
+    // ---------- Scheduler ----------
+    const activeTimers = {}; // profileId -> array of timeout IDs
+
+    function stopScheduler(profileId) {
+      if (activeTimers[profileId]) {
+        activeTimers[profileId].forEach(t => clearTimeout(t));
+        delete activeTimers[profileId];
+      }
+    }
+
+    function startScheduler(profile) {
+      stopScheduler(profile.id);
+      if (!profile.enabled) return;
+
+      const now = new Date();
+      let start = new Date(profile.startTime);
+      if (start < now) start = now;
+
+      // Convert interval to milliseconds
+      const intervalMsMap = {
+        minute: 60 * 1000,
+        hour: 60 * 60 * 1000,
+        day: 24 * 60 * 60 * 1000,
+        month: 30 * 24 * 60 * 60 * 1000,
+        year: 365 * 24 * 60 * 60 * 1000
+      };
+      const intervalMs = intervalMsMap[profile.interval];
+
+      // Generate schedule for the first interval
+      scheduleInterval(profile, start, intervalMs);
+    }
+
+    function scheduleInterval(profile, intervalStart, intervalMs) {
+      const intervalEnd = new Date(intervalStart.getTime() + intervalMs);
+      const now = new Date();
+      // If interval already passed, skip to next
+      if (intervalEnd <= now) {
+        const nextStart = new Date(intervalStart.getTime() + intervalMs);
+        scheduleInterval(profile, nextStart, intervalMs);
+        return;
+      }
+
+      // How many seconds in this interval?
+      const totalSeconds = Math.floor(intervalMs / 1000);
+      const messagesToSend = Math.min(profile.frequency, totalSeconds * 2); // max 2 per second
+
+      // Build an array of message counts per second (0,1,2)
+      const perSecond = new Array(totalSeconds).fill(0);
+      let remaining = messagesToSend;
+      // Randomly distribute
+      while (remaining > 0) {
+        const sec = Math.floor(Math.random() * totalSeconds);
+        if (perSecond[sec] < 2) {
+          perSecond[sec]++;
+          remaining--;
+        }
+      }
+
+      // Now create timeouts for each message
+      const timers = [];
+      const baseTime = intervalStart.getTime();
+      for (let sec = 0; sec < totalSeconds; sec++) {
+        const count = perSecond[sec];
+        for (let i = 0; i < count; i++) {
+          // Random offset within the second (0-999 ms)
+          const offset = Math.floor(Math.random() * 1000);
+          const delay = baseTime + sec * 1000 + offset - Date.now();
+          if (delay > 0) {
+            const msg = profile.messages[Math.floor(Math.random() * profile.messages.length)];
+            const timerId = setTimeout(() => {
+              sendNotification(profile, msg);
+            }, delay);
+            timers.push(timerId);
+          }
+        }
+      }
+      activeTimers[profile.id] = timers;
+
+      // Schedule next interval
+      const nextStart = new Date(baseTime + intervalMs);
+      const nextTimer = setTimeout(() => {
+        scheduleInterval(profile, nextStart, intervalMs);
+      }, intervalMs);
+      activeTimers[profile.id].push(nextTimer);
+    }
+
+    // ---------- Send Notification ----------
+    function sendNotification(profile, message) {
+      // 1. System notification
+      if (Notification.permission === 'granted') {
+        new Notification(profile.senderName, {
+          body: message,
+          icon: profile.avatar || 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1200px-WhatsApp.svg.png',
+          tag: 'wa-sim-' + Date.now() + Math.random()
+        });
+      }
+
+      // 2. In-app popup
+      showPopup(profile, message);
+
+      // 3. Play sound (simple beep using Web Audio)
+      playBeep();
+    }
+
+    function showPopup(profile, message) {
+      const popup = document.createElement('div');
+      popup.className = 'wa-popup';
+      popup.innerHTML = `
+        <div class="wa-popup-header">
+          <img src="${profile.avatar || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect fill=%22%232a3942%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2250%22 y=%2255%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%236b7b85%22%3E%3F%3C/text%3E%3C/svg%3E'}" alt="">
+          <span>${profile.senderName}</span>
+        </div>
+        <div class="wa-popup-body">${message}</div>
+        <div class="wa-popup-footer">now</div>
+      `;
+      document.body.appendChild(popup);
+      // Auto remove after 4 seconds
+      setTimeout(() => {
+        popup.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => popup.remove(), 300);
+      }, 4000);
+    }
+
+    function playBeep() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.value = 800;
+        gain.gain.value = 0.1;
+        osc.start();
+        osc.stop(ctx.currentTime + 0.1);
+      } catch (e) { /* ignore */ }
+    }
+
+    // ---------- Tabs ----------
+    document.querySelectorAll('.tabs button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab + '-tab').classList.add('active');
+      });
+    });
+
+    // ---------- Global Controls ----------
+    document.getElementById('enableAll').addEventListener('click', () => {
+      profiles.forEach(p => {
+        if (!p.enabled) {
+          p.enabled = true;
+          startScheduler(p);
+        }
+      });
+      saveProfiles();
+      renderProfileList();
+    });
+
+    document.getElementById('disableAll').addEventListener('click', () => {
+      profiles.forEach(p => {
+        p.enabled = false;
+        stopScheduler(p.id);
+      });
+      saveProfiles();
+      renderProfileList();
+    });
+
+    // ---------- Avatar Preview ----------
+    document.getElementById('avatarFile').addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          document.getElementById('avatarPreview').src = ev.target.result;
+          document.getElementById('avatarPreview').style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // ---------- Request Notification Permission ----------
+    if ('Notification' in window && Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
+
+    // ---------- Init ----------
+    loadProfiles();
+    // Restart schedulers for enabled profiles
+    profiles.forEach(p => {
+      if (p.enabled) startScheduler(p);
+    });
+
+    // Set default start time to now
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    document.getElementById('startTime').value = now.toISOString().slice(0, 16);
+  </script>
+</body>
+</html>
