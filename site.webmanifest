@@ -1,0 +1,22 @@
+{
+  "name": "Arezzi Furniture",
+  "short_name": "Arezzi",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#121210",
+  "theme_color": "#121210",
+  "icons": [
+    {
+      "src": "/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

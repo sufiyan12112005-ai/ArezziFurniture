@@ -1,9 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /internal/
-Disallow: /thank-you.html
-Sitemap: https://arezzi-furniture-design.analyst-king.chatgpt.site/sitemap.xml
-
 Disallow: /bookfrom.html
 Disallow: /bookform.html
 Disallow: /bill-generator.html
+Disallow: /thank-you.html
+Sitemap: https://arezzifurniture.com/sitemap.xml

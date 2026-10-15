@@ -1,46 +1,73 @@
 'use strict';
-// Two independent destinations share a stable idempotency key and immutable payload.
-AREZZI.sendDestinations = async (form, payload) => {
-  form._delivery ||= {payload, confirmed:{}};
-  const state=form._delivery, results=[];
-  for(const [key,label,url] of [['sheet','Enquiry record',SITE_CONFIG.sheetsScriptUrl],['email','Team notification',SITE_CONFIG.gmailScriptUrl]]){
-    if(state.confirmed[key]){results.push({key,label,ok:true,reference:state.confirmed[key]});continue;}
-    if(!AREZZI.configured(url)){results.push({key,label,ok:false,message:'Not connected yet'});continue;}
-    let timer;
+// Apps Script ContentService redirects responses across origins. A POST alone
+// cannot confirm a browser-side save. The public GET below returns only the
+// opaque receipt ID, never customer data; its callback name is generated here.
+AREZZI.lookupEnquiryReceipt = (endpoint, requestId, timeoutMs=7000) => new Promise((resolve,reject)=>{
+  const callback='__arezziReceipt_'+Math.random().toString(36).slice(2)+Date.now().toString(36);
+  const url=new URL(endpoint);url.searchParams.set('receipt',requestId);url.searchParams.set('callback',callback);
+  const script=document.createElement('script');let finished=false;
+  const finish=(error,value)=>{if(finished)return;finished=true;clearTimeout(timer);script.remove();delete window[callback];error?reject(error):resolve(value);};
+  const timer=setTimeout(()=>finish(Error('Receipt check timed out')),timeoutMs);
+  window[callback]=answer=>finish(null,answer);
+  script.onerror=()=>finish(Error('Receipt check failed'));
+  script.src=url.href;document.head.append(script);
+});
+AREZZI.saveEnquiry = async (form,payload) => {
+  const url=form.closest?.('[data-enquiry]')?.dataset.enquiryEndpoint||SITE_CONFIG.enquiryScriptUrl;
+  if(!AREZZI.configured(url))return {ok:false,attempted:false,message:'Enquiry service not connected yet'};
+  let endpoint;
+  try{endpoint=new URL(url);if(endpoint.protocol!=='https:')throw Error();}
+  catch{return {ok:false,attempted:false,message:'Invalid enquiry service URL'};}
+  form._delivery ||= {payload,attempted:false,confirmed:''};
+  const state=form._delivery;
+  if(state.confirmed)return {ok:true,attempted:true,reference:state.confirmed};
+  state.attempted=true;
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),30000);
+  try{await fetch(endpoint.href,{method:'POST',mode:'no-cors',body:JSON.stringify(state.payload),signal:controller.signal,redirect:'follow'});}
+  catch{/* A failed browser response can follow a completed write. Check the receipt. */}
+  finally{clearTimeout(timer);}
+  const delays=[0,1200,2500,4000,6000,8000,10000,10000];
+  for(const delay of delays){
+    if(delay)await new Promise(resolve=>setTimeout(resolve,delay));
     try{
-      const endpoint=new URL(url);if(endpoint.protocol!=='https:')throw Error();
-      const controller=new AbortController();timer=setTimeout(()=>controller.abort(),30000);
-      const response=await fetch(endpoint.href,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({...state.payload,destination:key}),signal:controller.signal,redirect:'follow'});
-      if(!response.ok)throw Error();const answer=await response.json();if(answer.success!==true)throw Error();
-      const reference=String(answer.referenceId||answer.enquiryId||answer.bookingId||'Received').slice(0,120);
-      state.confirmed[key]=reference;results.push({key,label,ok:true,reference});
-    }catch{results.push({key,label,ok:false,message:'Receipt not confirmed — retry available'});}finally{clearTimeout(timer);}
+      const answer=await AREZZI.lookupEnquiryReceipt(endpoint.href,state.payload.clientRequestId);
+      if(answer?.success===true&&answer.referenceId){state.confirmed=String(answer.referenceId).slice(0,120);return {ok:true,attempted:true,reference:state.confirmed};}
+    }catch{}
   }
-  return results;
+  return {ok:false,attempted:true,message:'Receipt not confirmed. Retry this same enquiry ID.'};
 };
-// Shared by customer enquiries and staff bookings; success is never inferred from an opaque response.
 FORMS.submit=async form=>{
   if(form._submitting||form._submitted)return;
   await Promise.all([...form.querySelectorAll('input[type=file]')].map(el=>el._validateFile?.()));
   if(form._submitting||form._submitted)return;
-  if(!form._delivery && ((form._extraValidate&&!form._extraValidate())||!FORMS.validate(form)))return;
+  if(!form._delivery&&((form._extraValidate&&!form._extraValidate())||!FORMS.validate(form)))return;
   const status=form.querySelector('.form-status'),submit=form.querySelector('[type=submit]');
-  form._submitting=true;submit.disabled=true;submit.textContent='Sending…';status.textContent='Sending your request. Please keep this page open.';
+  form._submitting=true;submit.disabled=true;submit.textContent='Saving enquiry…';
+  status.textContent='Saving your enquiry. Please keep this page open.';
   let controls=[];
   try{
     const payload=form._delivery?.payload||await FORMS.payload(form);
-    controls=[...form.querySelectorAll('input,select,textarea,button:not([type=submit])')].map(el=>[el,el.disabled]);controls.forEach(([el])=>el.disabled=true);
-    const results=await AREZZI.sendDestinations(form,payload),all=results.every(x=>x.ok),some=results.some(x=>x.ok);
-    status.className='form-status '+(all?'success':'error');status.replaceChildren();
-    const title=document.createElement('p');title.textContent=all?'Thank you. Your request has been received. We will contact you to discuss the next step.':some?'Your request was partly delivered. Retry will only contact the remaining destination.':'Online receipt has not been confirmed. Your details are kept on this page. You can retry, call, or use WhatsApp.';status.append(title);
-    const list=document.createElement('ul');list.className='destination-status';results.forEach(r=>{const li=document.createElement('li');li.textContent=r.label+': '+(r.ok?r.reference:r.message);list.append(li);});status.append(list);
-    form._submitted=all;submit.textContent=all?'Request received':'Retry remaining delivery';submit.disabled=all;
-    if(all){try{sessionStorage.setItem('arezzi-receipt',JSON.stringify({success:true,type:form.dataset.requestType,reference:results[0].reference,at:Date.now()}));}catch{}}
-    if(!some){controls.forEach(([el,disabled])=>el.disabled=disabled);form._delivery=null;}
-    // Once one destination accepts a payload, inputs stay locked to keep retries identical.
+    controls=[...form.querySelectorAll('input,select,textarea,button:not([type=submit])')].map(el=>[el,el.disabled]);
+    controls.forEach(([el])=>el.disabled=true);
+    const result=await AREZZI.saveEnquiry(form,payload);
+    status.className='form-status '+(result.ok?'success':'error');
+    if(result.ok){
+      form._submitted=true;submit.textContent='Request received';submit.disabled=true;
+      status.textContent='Thank you. Your enquiry was saved as '+result.reference+'. Our team will contact you.';
+      try{sessionStorage.setItem('arezzi-receipt',JSON.stringify({success:true,type:form.dataset.requestType,reference:result.reference,at:Date.now()}));}catch{}
+      AREZZI.track('enquiry_form_submit',{referenceId:result.reference});
+    }else{
+      status.textContent=result.attempted?'We could not confirm the save. Your details are held here. Retry uses the same enquiry ID to avoid duplicates.':result.message+'. Your details remain here; you can call or use WhatsApp.';
+      submit.textContent=result.attempted?'Retry saving enquiry':'Submit request';submit.disabled=false;
+      if(!result.attempted){controls.forEach(([el,disabled])=>el.disabled=disabled);form._delivery=null;}
+      // After any POST attempt, values remain locked so retries send the same payload.
+    }
     status.focus();
-  }catch{status.className='form-status error';status.textContent='Unable to prepare the request. Your details remain here. Please retry.';controls.forEach(([el,disabled])=>el.disabled=disabled);submit.disabled=false;submit.textContent='Retry request';}
-  finally{form._submitting=false;}
+  }catch{
+    status.className='form-status error';status.textContent='We could not prepare your enquiry. Your details remain here.';
+    if(!form._delivery?.attempted)controls.forEach(([el,disabled])=>el.disabled=disabled);
+    submit.disabled=false;submit.textContent=form._delivery?.attempted?'Retry saving enquiry':'Submit request';
+  }finally{form._submitting=false;}
 };
 document.addEventListener('DOMContentLoaded',()=>{
  const host=document.querySelector('[data-enquiry]');if(!host)return;const f=FORMS.field;

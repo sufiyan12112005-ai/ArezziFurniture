@@ -1,0 +1,189 @@
+{
+  "category": "table",
+  "target": 100,
+  "completed": 26,
+  "assets": [
+    {
+      "model": "Dining Table",
+      "id": "table-dining-table",
+      "number": 1,
+      "path": "assets/images/designs/table-dining-table/01.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: oval walnut twin fluted pedestal six seats; clearly a dining table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; soft morning window light. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Dining Table",
+      "id": "table-dining-table",
+      "number": 2,
+      "path": "assets/images/designs/table-dining-table/02.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: round cream travertine drum pedestal four seats; clearly a dining table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; warm late afternoon light. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Dining Table",
+      "id": "table-dining-table",
+      "number": 3,
+      "path": "assets/images/designs/table-dining-table/03.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: rectangular smoked oak trestle eight seats; clearly a dining table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; gentle ambient architectural lighting. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Dining Table",
+      "id": "table-dining-table",
+      "number": 4,
+      "path": "assets/images/designs/table-dining-table/04.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: oval black marble brass open base six seats; clearly a dining table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; soft diffused daylight. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Dining Table",
+      "id": "table-dining-table",
+      "number": 5,
+      "path": "assets/images/designs/table-dining-table/05.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: rectangular warm teak tapered legs six seats; clearly a dining table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; golden evening window light. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Dining Table",
+      "id": "table-dining-table",
+      "number": 6,
+      "path": "assets/images/designs/table-dining-table/06.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: round smoked glass walnut sculptural base four seats; clearly a dining table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; soft morning window light. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Dining Table",
+      "id": "table-dining-table",
+      "number": 7,
+      "path": "assets/images/designs/table-dining-table/07.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: boat-shaped ivory ceramic dark oak base six seats; clearly a dining table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; warm late afternoon light. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Dining Table",
+      "id": "table-dining-table",
+      "number": 8,
+      "path": "assets/images/designs/table-dining-table/08.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: racetrack burgundy marble bronze legs six seats; clearly a dining table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; gentle ambient architectural lighting. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Dining Table",
+      "id": "table-dining-table",
+      "number": 9,
+      "path": "assets/images/designs/table-dining-table/09.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: square walnut crossed pedestal four seats; clearly a dining table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; soft diffused daylight. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Dining Table",
+      "id": "table-dining-table",
+      "number": 10,
+      "path": "assets/images/designs/table-dining-table/10.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: long natural oak rounded slab walnut legs eight seats; clearly a dining table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; golden evening window light. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Coffee Table",
+      "id": "table-coffee-table",
+      "number": 1,
+      "path": "assets/images/designs/table-coffee-table/01.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: low round cream travertine drum; clearly a coffee table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; soft morning window light. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Coffee Table",
+      "id": "table-coffee-table",
+      "number": 2,
+      "path": "assets/images/designs/table-coffee-table/02.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: oval walnut waterfall solid slab; clearly a coffee table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; warm late afternoon light. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Coffee Table",
+      "id": "table-coffee-table",
+      "number": 3,
+      "path": "assets/images/designs/table-coffee-table/03.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: rectangular black marble brushed bronze frame; clearly a coffee table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; gentle ambient architectural lighting. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Coffee Table",
+      "id": "table-coffee-table",
+      "number": 4,
+      "path": "assets/images/designs/table-coffee-table/04.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: two nesting round smoked glass brass tables; clearly a coffee table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; soft diffused daylight. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Coffee Table",
+      "id": "table-coffee-table",
+      "number": 5,
+      "path": "assets/images/designs/table-coffee-table/05.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: organic pebble pale oak sculptural legs; clearly a coffee table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; golden evening window light. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Coffee Table",
+      "id": "table-coffee-table",
+      "number": 6,
+      "path": "assets/images/designs/table-coffee-table/06.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: square walnut with lower woven shelf; clearly a coffee table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; soft morning window light. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Coffee Table",
+      "id": "table-coffee-table",
+      "number": 7,
+      "path": "assets/images/designs/table-coffee-table/07.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: round burgundy marble fluted timber base; clearly a coffee table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; warm late afternoon light. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Coffee Table",
+      "id": "table-coffee-table",
+      "number": 8,
+      "path": "assets/images/designs/table-coffee-table/08.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: low rectangular tan leather wrapped base glass top; clearly a coffee table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; gentle ambient architectural lighting. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Coffee Table",
+      "id": "table-coffee-table",
+      "number": 9,
+      "path": "assets/images/designs/table-coffee-table/09.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: capsule cream lacquer walnut open shelf; clearly a coffee table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; soft diffused daylight. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Coffee Table",
+      "id": "table-coffee-table",
+      "number": 10,
+      "path": "assets/images/designs/table-coffee-table/10.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: round dark oak three chunky curved legs; clearly a coffee table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; golden evening window light. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Centre Table",
+      "id": "table-centre-table",
+      "number": 1,
+      "path": "assets/images/designs/table-centre-table/01.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: large oval marble bronze pedestal; clearly a centre table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; soft morning window light. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Centre Table",
+      "id": "table-centre-table",
+      "number": 2,
+      "path": "assets/images/designs/table-centre-table/02.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: square walnut four carved arch legs; clearly a centre table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; warm late afternoon light. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Centre Table",
+      "id": "table-centre-table",
+      "number": 3,
+      "path": "assets/images/designs/table-centre-table/03.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: rectangular travertine twin plinth; clearly a centre table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; gentle ambient architectural lighting. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Centre Table",
+      "id": "table-centre-table",
+      "number": 4,
+      "path": "assets/images/designs/table-centre-table/04.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: round smoked glass sculptural black timber base; clearly a centre table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; soft diffused daylight. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Centre Table",
+      "id": "table-centre-table",
+      "number": 5,
+      "path": "assets/images/designs/table-centre-table/05.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: organic kidney walnut on three pedestal legs; clearly a centre table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; golden evening window light. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "model": "Centre Table",
+      "id": "table-centre-table",
+      "number": 6,
+      "path": "assets/images/designs/table-centre-table/06.webp",
+      "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: large round ivory stone fluted oak drum; clearly a centre table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; soft morning window light. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    }
+  ]
+}

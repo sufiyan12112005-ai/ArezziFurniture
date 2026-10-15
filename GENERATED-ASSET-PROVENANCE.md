@@ -48,3 +48,6 @@ Files: `assets/images/hero/arezzi-luxury-mobile.webp` (941 × 1672), `arezzi-lux
 
 Hero images are separate generated still photographs, visually inspected and converted with FFmpeg libwebp quality 90. They are not videos and are not actual Arezzi showroom photographs.
 
+
+## Production update, 15 October 2026
+93 new furniture images generated with the built-in image generator, one distinct output per image. Model manifests under assets/images/designs record prompts and paths. Full WebP and 640px derivatives are used. Generation paused at the account usage limit; see IMAGE-BATCH-STATUS.json. Circular favicon generated from the supplied Arezzi icon with transparent outer corners, then exported at browser and app icon sizes.

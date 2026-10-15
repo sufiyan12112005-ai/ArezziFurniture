@@ -6,18 +6,13 @@ Open `index.html` through a static web server. The project is HTML, CSS and brow
 
 All customer enquiry entry points use the same form. A product link preselects the model. Customers can leave preferences blank and request help at home. Visit availability is confirmed by the team.
 
-### Connect the two enquiry destinations
+### One enquiry endpoint
 
-Edit `assets/js/config.js`:
+All three customer forms use ENQUIRY_SCRIPT_URL in assets/js/config.js. The supplied /exec URL is configured. POST saves the enquiry; a separate public receipt lookup confirms the saved ID without disclosing customer details. Retrying uses the same clientRequestId to prevent duplicates. The daily digest is sent by the same Apps Script, once per completed day.
 
-1. `GOOGLE_SHEETS_SCRIPT_URL`: the Apps Script that saves the enquiry.
-2. `GMAIL_SCRIPT_URL`: the Apps Script that emails the designated recipient.
+**Required server update:** follow apps-script/DEPLOYMENT.md. The live script is reachable but its existing sheet has incompatible column headings. The replacement script preserves that tab as a backup and creates the expected enquiry sheet when setupArezzi is run. Update the existing deployment to a new version after setup.
 
-Both receive a JSON object in a `text/plain;charset=utf-8` POST body. Return readable JSON `{ "success": true, "referenceId": "your-reference" }` only after your destination operation succeeds. Configure deployment access and cross-origin response behavior appropriately. Never use an opaque `no-cors` result as confirmation.
-
-Payload keys: `requestType`, `clientRequestId`, `submittedAt`, `sourcePage`, `destination` (`sheet` or `email`), `name`, `phone`, `district`, `area`, `pin`, `furnitureType`, `guidanceRequested`, `model`, `material`, `colour`, `quantity`, `customPreference`, `email`, `requirements`, `consent`, and optional `referenceImage` (`name`, `mimeType`, `size`, `base64`). Blank optional fields stay blank.
-
-Each endpoint must independently validate inputs and deduplicate by `clientRequestId`. If one succeeds, the browser locks that request's values and retries only the other. An uncertain network result must be safe to retry at the server. State is kept only in the open page; do not reload during a partial delivery. The frontend does not send mail or store Google Sheets data until these URLs are configured. No real submissions were sent during QA.
+The website cannot repair spreadsheet columns by changing frontend JavaScript. No live test enquiry was submitted while this error persisted.
 
 ## Staff tools
 
@@ -27,7 +22,7 @@ Each endpoint must independently validate inputs and deduplicate by `clientReque
 
 Billing runs on the device using bundled jsPDF 4.2.1 (MIT; license in `assets/vendor/`). No bill data is uploaded. Bank account and UPI information are retained from your reference PDFs. GSTIN `xxxxxxxxxx3243` is a placeholder: documents carry a draft notice until it is replaced. Terms and business verticals are editable because the supplied reference covers more than furniture. Review them for each order.
 
-Staff pages are absent from customer navigation and marked `noindex`. These do not provide authentication. The current hosted preview is owner-private. Keep staff files on an access-controlled staff host or private local deployment when making the customer site public. Do not use a JavaScript password as security.
+Staff pages are absent from customer navigation and marked `noindex`. These do not provide authentication. Keep staff files on an access-controlled staff host or private local deployment when making the customer site public. Do not use a JavaScript password as security.
 
 ## Media and metadata
 

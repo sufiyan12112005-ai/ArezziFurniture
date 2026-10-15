@@ -826,7 +826,7 @@
   <meta name="robots" content="noindex,nofollow">
   <script src="assets/js/config.js"></script>
   <link rel="stylesheet" href="assets/css/staff.css">
-</head>
+<link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="96x96" href="favicon-96.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest"></head>
 
 <body>
   <nav class="staff-nav"><a href="index.html"><img src="assets/images/brand/logo-full.png" alt="Arezzi Furniture"
@@ -2252,7 +2252,9 @@
 
       // Keep an unfinished booking on this browser only. Remove it after a confirmed save.
       let restoringDraft = false, draftTimer;
+      let bookingConfirmed = false;
       function saveDraft() {
+        if (bookingConfirmed) return;
         if (restoringDraft) return;
         const fields = {};
         form.querySelectorAll('input[name],select[name],textarea[name]').forEach(el => {
@@ -2338,6 +2340,7 @@
           const result = await response.json();
 
           if (response.ok && result.success === true) {
+            bookingConfirmed = true; clearTimeout(draftTimer);
             try { localStorage.removeItem(DRAFT_KEY); } catch { }
             successBookingId.textContent = result.bookingId || '';
             successOverlay.classList.add('show');
@@ -2359,6 +2362,7 @@
       });
 
       newBookingBtn.addEventListener('click', () => {
+        bookingConfirmed = false;
         successOverlay.classList.remove('show');
         resetForm();
       });
