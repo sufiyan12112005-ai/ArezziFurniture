@@ -36,38 +36,59 @@ AREZZI.saveEnquiry = async (form,payload) => {
   }
   return {ok:false,attempted:true,message:'Receipt not confirmed. Retry this same enquiry ID.'};
 };
+// Customer acknowledgement stays in this document so navigation cannot cancel POST.
+const originalEnquirySubmit = FORMS.submit;
 FORMS.submit=async form=>{
+  if(!form.closest('[data-enquiry]'))return originalEnquirySubmit(form);
   if(form._submitting||form._submitted)return;
   await Promise.all([...form.querySelectorAll('input[type=file]')].map(el=>el._validateFile?.()));
   if(form._submitting||form._submitted)return;
   if(!form._delivery&&((form._extraValidate&&!form._extraValidate())||!FORMS.validate(form)))return;
   const status=form.querySelector('.form-status'),submit=form.querySelector('[type=submit]');
-  form._submitting=true;submit.disabled=true;submit.textContent='Saving enquiry…';
-  status.textContent='Saving your enquiry. Please keep this page open.';
-  let controls=[];
+  const host=form.closest('[data-enquiry]');
+  let endpoint;
+  try{endpoint=new URL(host.dataset.enquiryEndpoint||SITE_CONFIG.enquiryScriptUrl);if(endpoint.protocol!=='https:')throw Error();}
+  catch{status.textContent='Please call or WhatsApp us while online enquiries are unavailable.';return;}
+  form._submitting=true;submit.disabled=true;submit.textContent='Sending enquiry…';
+  status.textContent='One moment while we send your details.';
+  let panel,viewTimer,networkTimer,controls=[];
+  const showThanks=()=>{
+    if(panel)return;
+    panel=document.createElement('section');panel.className='form-shell';panel.tabIndex=-1;
+    panel.style.cssText='text-align:center;padding:clamp(24px,5vw,60px);scroll-margin-top:110px';
+    panel.innerHTML='<span class="eyebrow">Arezzi Furniture</span><div style="font-size:42px;color:#b3834d;margin:15px">♡</div><h2>Thank you for reaching out.</h2><p style="margin:16px 0">Your ideas are the start of something beautiful.</p><p data-delivery role="status" aria-live="polite">Sending your details. Please keep this page open for a moment.</p><button class="btn" type="button" data-retry hidden style="margin-top:20px">Try sending again</button><div class="actions" style="justify-content:center;margin-top:24px" data-done hidden><a class="btn" href="sofas.html">Explore furniture</a><a class="btn secondary" data-contact="whatsapp">WhatsApp us</a></div>';
+    form.hidden=true;host.append(panel);AREZZI.contactLinks(panel);
+    panel.querySelector('[data-retry]').onclick=()=>{panel.remove();panel=null;form.hidden=false;FORMS.submit(form);};
+    panel.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+    panel.focus({preventScroll:true});
+  };
+  // Show the acknowledgement after two seconds; it does not claim a saved receipt.
+  const started=Date.now();
+  viewTimer=setTimeout(showThanks,2000);
   try{
     const payload=form._delivery?.payload||await FORMS.payload(form);
-    controls=[...form.querySelectorAll('input,select,textarea,button:not([type=submit])')].map(el=>[el,el.disabled]);
+    form._delivery={payload,attempted:true};
+    controls=[...form.querySelectorAll('input,select,textarea,button')].map(el=>[el,el.disabled]);
     controls.forEach(([el])=>el.disabled=true);
-    const result=await AREZZI.saveEnquiry(form,payload);
-    status.className='form-status '+(result.ok?'success':'error');
-    if(result.ok){
-      form._submitted=true;submit.textContent='Request received';submit.disabled=true;
-      status.textContent='Thank you. Your enquiry was saved as '+result.reference+'. Our team will contact you.';
-      try{sessionStorage.setItem('arezzi-receipt',JSON.stringify({success:true,type:form.dataset.requestType,reference:result.reference,at:Date.now()}));}catch{}
-      AREZZI.track('enquiry_form_submit',{referenceId:result.reference});
-    }else{
-      status.textContent=result.attempted?'We could not confirm the save. Your details are held here. Retry uses the same enquiry ID to avoid duplicates.':result.message+'. Your details remain here; you can call or use WhatsApp.';
-      submit.textContent=result.attempted?'Retry saving enquiry':'Submit request';submit.disabled=false;
-      if(!result.attempted){controls.forEach(([el,disabled])=>el.disabled=disabled);form._delivery=null;}
-      // After any POST attempt, values remain locked so retries send the same payload.
-    }
-    status.focus();
+    const controller=new AbortController();networkTimer=setTimeout(()=>controller.abort(),60000);
+    const response=await fetch(endpoint.href,{method:'POST',mode:'no-cors',body:JSON.stringify(payload),redirect:'follow',signal:controller.signal});
+    if(response.type!=='opaque'&&!response.ok)throw Error('Delivery failed');
+    clearTimeout(networkTimer);
+    // An opaque response means the request finished, not proof of a spreadsheet write.
+    form._submitted=true;
+    await new Promise(resolve=>setTimeout(resolve,Math.max(0,2000-(Date.now()-started))));
+    showThanks();
+    panel.querySelector('[data-delivery]').textContent='For any additional details or urgent questions, you can contact our team on WhatsApp.';
+    panel.querySelector('[data-done]').hidden=false;
+    AREZZI.track('enquiry_request_sent',{requestId:payload.clientRequestId});
   }catch{
-    status.className='form-status error';status.textContent='We could not prepare your enquiry. Your details remain here.';
-    if(!form._delivery?.attempted)controls.forEach(([el,disabled])=>el.disabled=disabled);
-    submit.disabled=false;submit.textContent=form._delivery?.attempted?'Retry saving enquiry':'Submit request';
-  }finally{form._submitting=false;}
+    clearTimeout(viewTimer);showThanks();
+    panel.querySelector('h2').textContent='Let’s finish sending your enquiry.';
+    panel.querySelector('[data-delivery]').textContent='The connection was interrupted. Your details are still here. Please try again or contact us on WhatsApp.';
+    panel.querySelector('[data-retry]').hidden=false;
+    panel.querySelector('[data-done]').hidden=false;
+    submit.disabled=false;submit.textContent='Try sending again';
+  }finally{clearTimeout(viewTimer);clearTimeout(networkTimer);form._submitting=false;}
 };
 document.addEventListener('DOMContentLoaded',()=>{
  const host=document.querySelector('[data-enquiry]');if(!host)return;const f=FORMS.field;
