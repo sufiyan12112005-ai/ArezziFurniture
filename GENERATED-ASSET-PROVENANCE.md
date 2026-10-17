@@ -51,3 +51,6 @@ Hero images are separate generated still photographs, visually inspected and con
 
 ## Production update, 15 October 2026
 93 new furniture images generated with the built-in image generator, one distinct output per image. Model manifests under assets/images/designs record prompts and paths. Full WebP and 640px derivatives are used. Generation paused at the account usage limit; see IMAGE-BATCH-STATUS.json. Circular favicon generated from the supplied Arezzi icon with transparent outer corners, then exported at browser and app icon sizes.
+
+## Completed gallery batch
+All 350 distinct model images are now saved, ten per model, using built-in image generation. Individual prompts and output paths are retained in category manifests. The earlier partial-batch note above is superseded.

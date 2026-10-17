@@ -1,7 +1,7 @@
 {
   "target": 350,
-  "completed": 93,
-  "reason": "Generation stopped at account usage limit. Remaining assets have not been generated.",
+  "completed": 350,
+  "reason": "Complete",
   "models": [
     {
       "model": "L-Shape Sofa",
@@ -27,79 +27,79 @@
     {
       "model": "3+2 Sofa Set",
       "id": "sofa-3-plus-2-sofa-set",
-      "newImages": 4,
+      "newImages": 10,
       "target": 10,
-      "remaining": 6
+      "remaining": 0
     },
     {
       "model": "3+1+1 Sofa Set",
       "id": "sofa-3-plus-1-plus-1-sofa-set",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Lounge Sofa",
       "id": "sofa-lounge-sofa",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "U-Shape Sofa",
       "id": "sofa-u-shape-sofa",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Maharaja Sofa",
       "id": "sofa-maharaja-sofa",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Wooden Sofa",
       "id": "sofa-wooden-sofa",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Modular Sofa",
       "id": "sofa-modular-sofa",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Sectional Sofa",
       "id": "sofa-sectional-sofa",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Chesterfield Sofa",
       "id": "sofa-chesterfield-sofa",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Loveseat",
       "id": "sofa-loveseat",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Custom Sofa",
       "id": "sofa-custom-sofa",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Single Bed",
@@ -125,58 +125,58 @@
     {
       "model": "King Size Bed",
       "id": "bed-king-size-bed",
-      "newImages": 3,
+      "newImages": 10,
       "target": 10,
-      "remaining": 7
+      "remaining": 0
     },
     {
       "model": "Hydraulic Storage Bed",
       "id": "bed-hydraulic-storage-bed",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Box Storage Bed",
       "id": "bed-box-storage-bed",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Upholstered Bed",
       "id": "bed-upholstered-bed",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Wooden Bed",
       "id": "bed-wooden-bed",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Bunk Bed",
       "id": "bed-bunk-bed",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Sofa Cum Bed",
       "id": "bed-sofa-cum-bed",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Custom Bed",
       "id": "bed-custom-bed",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Dining Table",
@@ -195,58 +195,58 @@
     {
       "model": "Centre Table",
       "id": "table-centre-table",
-      "newImages": 6,
+      "newImages": 10,
       "target": 10,
-      "remaining": 4
+      "remaining": 0
     },
     {
       "model": "Side Table",
       "id": "table-side-table",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Study Table",
       "id": "table-study-table",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Office Table",
       "id": "table-office-table",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Console Table",
       "id": "table-console-table",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Dressing Table",
       "id": "table-dressing-table",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Folding Table",
       "id": "table-folding-table",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     },
     {
       "model": "Custom Table",
       "id": "table-custom-table",
-      "newImages": 0,
+      "newImages": 10,
       "target": 10,
-      "remaining": 10
+      "remaining": 0
     }
   ]
 }

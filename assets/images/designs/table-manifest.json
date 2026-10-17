@@ -1,7 +1,7 @@
 {
   "category": "table",
   "target": 100,
-  "completed": 26,
+  "completed": 100,
   "assets": [
     {
       "model": "Dining Table",
@@ -184,6 +184,544 @@
       "number": 6,
       "path": "assets/images/designs/table-centre-table/06.webp",
       "prompt": "Use case: product-mockup. Create ONE individually generated photorealistic furniture design inspiration photograph, landscape 3:2. Primary subject: large round ivory stone fluted oak drum; clearly a centre table. Entire furniture must be visible with generous framing and plausible construction. Place in a refined warm luxury interior with charcoal, walnut and subtle brushed gold accents; soft morning window light. Camera three-quarter viewpoint, item dominates image, modest tasteful decor, believable scale and detailed materials.    No people, text, logo, watermark, border or collage. One distinct design, not a grid. High-end furniture catalog photography."
+    },
+    {
+      "id": "table-centre-table",
+      "number": 7,
+      "model": "Centre Table",
+      "prompt": "Use case: product-mockup. Create one photorealistic furniture catalogue photograph, landscape 3:2. Entire centre table fully visible with generous margin: a low rectangular smoked glass top on two sculptural brushed brass arches and walnut lower shelf. Physically buildable refined construction. Warm luxury living room with charcoal walls, ivory sofa behind, walnut and subtle gold accents, diffused afternoon light. Three-quarter view, entire table including feet in frame, subject dominates, natural detailed material textures, restrained decor. No people, text, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-centre-table/07.webp"
+    },
+    {
+      "model": "Centre Table",
+      "id": "table-centre-table",
+      "number": 8,
+      "prompt": "Use case: product-mockup. Single photorealistic luxury furniture catalogue photograph, landscape 3:2. A distinctive low centre table with rounded rectangular deep green marble top, ribbed walnut two-drum base and thin brushed brass accent line. Entire table including all feet visible with generous margins, three-quarter view, believable construction and natural materials. Warm luxury living room with soft ivory upholstered sofa behind, charcoal and walnut walls, soft golden daylight. Table dominates the scene, restrained ceramic decor. No people, text, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-centre-table/08.webp"
+    },
+    {
+      "model": "Centre Table",
+      "id": "table-centre-table",
+      "number": 9,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: oversized square ivory limestone top with inset walnut plinth; unmistakably a centre table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, balanced soft daylight with warm lamps. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-centre-table/09.webp"
+    },
+    {
+      "model": "Centre Table",
+      "id": "table-centre-table",
+      "number": 10,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: two interlocking organic walnut and bronze low tables; unmistakably a centre table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-centre-table/10.webp"
+    },
+    {
+      "model": "Side Table",
+      "id": "table-side-table",
+      "number": 1,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: round walnut fluted cylinder with cream stone top; unmistakably a side table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-side-table/01.webp"
+    },
+    {
+      "model": "Side Table",
+      "id": "table-side-table",
+      "number": 2,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: small square dark oak table with open lower shelf; unmistakably a side table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, warm diffused afternoon sunlight. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-side-table/02.webp"
+    },
+    {
+      "model": "Side Table",
+      "id": "table-side-table",
+      "number": 3,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: C-shaped brushed brass frame with oval black marble top; unmistakably a side table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, balanced soft daylight with warm lamps. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-side-table/03.webp"
+    },
+    {
+      "model": "Side Table",
+      "id": "table-side-table",
+      "number": 4,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: round smoked glass top on sculptural bronze tripod; unmistakably a side table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-side-table/04.webp"
+    },
+    {
+      "model": "Side Table",
+      "id": "table-side-table",
+      "number": 5,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: compact travertine hourglass pedestal; unmistakably a side table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, warm diffused afternoon sunlight. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-side-table/05.webp"
+    },
+    {
+      "model": "Side Table",
+      "id": "table-side-table",
+      "number": 6,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: oval walnut drawer top with slender tapering legs; unmistakably a side table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, balanced soft daylight with warm lamps. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-side-table/06.webp"
+    },
+    {
+      "model": "Side Table",
+      "id": "table-side-table",
+      "number": 7,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: tiered circular ivory marble with black steel supports; unmistakably a side table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-side-table/07.webp"
+    },
+    {
+      "model": "Side Table",
+      "id": "table-side-table",
+      "number": 8,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: small burgundy marble cube with softened corners; unmistakably a side table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, warm diffused afternoon sunlight. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-side-table/08.webp"
+    },
+    {
+      "model": "Side Table",
+      "id": "table-side-table",
+      "number": 9,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: natural teak three-legged sculptural round stand; unmistakably a side table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, balanced soft daylight with warm lamps. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-side-table/09.webp"
+    },
+    {
+      "model": "Side Table",
+      "id": "table-side-table",
+      "number": 10,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: round cream ceramic top on looped walnut base; unmistakably a side table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-side-table/10.webp"
+    },
+    {
+      "model": "Study Table",
+      "id": "table-study-table",
+      "number": 1,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: compact light oak writing desk with single drawer and tapered legs; unmistakably a study table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-study-table/01.webp"
+    },
+    {
+      "model": "Study Table",
+      "id": "table-study-table",
+      "number": 2,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: walnut desk with cream drawer pedestal and curved corners; unmistakably a study table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, warm diffused afternoon sunlight. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-study-table/02.webp"
+    },
+    {
+      "model": "Study Table",
+      "id": "table-study-table",
+      "number": 3,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: slim blackened oak desk with brass frame and two drawers; unmistakably a study table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, balanced soft daylight with warm lamps. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-study-table/03.webp"
+    },
+    {
+      "model": "Study Table",
+      "id": "table-study-table",
+      "number": 4,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: floating-look maple desk with charcoal side cabinets; unmistakably a study table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-study-table/04.webp"
+    },
+    {
+      "model": "Study Table",
+      "id": "table-study-table",
+      "number": 5,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: walnut writing desk with sculpted arch legs and shallow shelf; unmistakably a study table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, warm diffused afternoon sunlight. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-study-table/05.webp"
+    },
+    {
+      "model": "Study Table",
+      "id": "table-study-table",
+      "number": 6,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: ivory laminate desktop with oak open shelving to one side; unmistakably a study table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, balanced soft daylight with warm lamps. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-study-table/06.webp"
+    },
+    {
+      "model": "Study Table",
+      "id": "table-study-table",
+      "number": 7,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: solid teak rectangular desk with leather writing inset; unmistakably a study table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-study-table/07.webp"
+    },
+    {
+      "model": "Study Table",
+      "id": "table-study-table",
+      "number": 8,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: light ash study desk with sage green drawer fronts; unmistakably a study table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, warm diffused afternoon sunlight. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-study-table/08.webp"
+    },
+    {
+      "model": "Study Table",
+      "number": 9,
+      "id": "table-study-table",
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: compact rounded walnut desk with cane-front drawer; unmistakably a study table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, balanced soft daylight with warm lamps. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-study-table/09.webp"
+    },
+    {
+      "model": "Study Table",
+      "number": 10,
+      "id": "table-study-table",
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: warm grey stone top study desk with dark oak trestles; unmistakably a study table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-study-table/10.webp"
+    },
+    {
+      "model": "Office Table",
+      "number": 1,
+      "id": "table-office-table",
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: large walnut executive desk with charcoal pedestal storage; unmistakably a office table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-office-table/01.webp"
+    },
+    {
+      "model": "Office Table",
+      "number": 2,
+      "id": "table-office-table",
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: black marble executive desktop on bronze loop legs; unmistakably a office table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, warm diffused afternoon sunlight. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-office-table/02.webp"
+    },
+    {
+      "model": "Office Table",
+      "id": "table-office-table",
+      "number": 3,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: oval-ended light oak work desk with integrated drawers; unmistakably a office table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, balanced soft daylight with warm lamps. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-office-table/03.webp"
+    },
+    {
+      "model": "Office Table",
+      "id": "table-office-table",
+      "number": 4,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: L-shaped walnut executive office table with return cabinet; unmistakably a office table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-office-table/04.webp"
+    },
+    {
+      "model": "Office Table",
+      "id": "table-office-table",
+      "number": 5,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: long smoked oak desk with black steel rectangular frame; unmistakably a office table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, warm diffused afternoon sunlight. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-office-table/05.webp"
+    },
+    {
+      "model": "Office Table",
+      "id": "table-office-table",
+      "number": 6,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: cream stone top executive desk with fluted walnut supports; unmistakably a office table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, balanced soft daylight with warm lamps. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-office-table/06.webp"
+    },
+    {
+      "model": "Office Table",
+      "id": "table-office-table",
+      "number": 7,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: dark teak workspace table with tan leather writing pad; unmistakably a office table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-office-table/07.webp"
+    },
+    {
+      "model": "Office Table",
+      "id": "table-office-table",
+      "number": 8,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: minimal ivory desk with walnut side pedestal and brass trim; unmistakably a office table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, warm diffused afternoon sunlight. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-office-table/08.webp"
+    },
+    {
+      "model": "Office Table",
+      "id": "table-office-table",
+      "number": 9,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: rounded espresso oak desk with sculptural twin bases; unmistakably a office table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, balanced soft daylight with warm lamps. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-office-table/09.webp"
+    },
+    {
+      "model": "Office Table",
+      "id": "table-office-table",
+      "number": 10,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: warm oak standing-height office table with black adjustable legs; unmistakably a office table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-office-table/10.webp"
+    },
+    {
+      "model": "Console Table",
+      "id": "table-console-table",
+      "number": 1,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: slim oval walnut console with two fluted pedestal legs; unmistakably a console table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-console-table/01.webp"
+    },
+    {
+      "model": "Console Table",
+      "id": "table-console-table",
+      "number": 2,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: narrow cream travertine console with waterfall edges; unmistakably a console table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, warm diffused afternoon sunlight. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-console-table/02.webp"
+    },
+    {
+      "model": "Console Table",
+      "id": "table-console-table",
+      "number": 3,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: black marble hallway console on brushed brass arches; unmistakably a console table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, balanced soft daylight with warm lamps. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-console-table/03.webp"
+    },
+    {
+      "model": "Console Table",
+      "id": "table-console-table",
+      "number": 4,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: teak console with two drawers and long lower shelf; unmistakably a console table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-console-table/04.webp"
+    },
+    {
+      "model": "Console Table",
+      "id": "table-console-table",
+      "number": 5,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: demilune dark oak console with slender tapered legs; unmistakably a console table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, warm diffused afternoon sunlight. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-console-table/05.webp"
+    },
+    {
+      "model": "Console Table",
+      "id": "table-console-table",
+      "number": 6,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: smoked glass console on sculpted bronze base; unmistakably a console table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, balanced soft daylight with warm lamps. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-console-table/06.webp"
+    },
+    {
+      "model": "Console Table",
+      "id": "table-console-table",
+      "number": 7,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: ivory painted console with cane-front drawers; unmistakably a console table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-console-table/07.webp"
+    },
+    {
+      "model": "Console Table",
+      "id": "table-console-table",
+      "number": 8,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: long walnut console with asymmetric open shelving; unmistakably a console table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, warm diffused afternoon sunlight. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-console-table/08.webp"
+    },
+    {
+      "model": "Console Table",
+      "id": "table-console-table",
+      "number": 9,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: deep green marble console with slim black metal frame; unmistakably a console table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, balanced soft daylight with warm lamps. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-console-table/09.webp"
+    },
+    {
+      "model": "Console Table",
+      "id": "table-console-table",
+      "number": 10,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: rounded blond oak console with curved solid side panels; unmistakably a console table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-console-table/10.webp"
+    },
+    {
+      "model": "Dressing Table",
+      "id": "table-dressing-table",
+      "number": 1,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: walnut vanity with round mirror two drawers and ivory stool; unmistakably a dressing table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-dressing-table/01.webp"
+    },
+    {
+      "model": "Dressing Table",
+      "id": "table-dressing-table",
+      "number": 2,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: cream lacquer dressing table with oval brass framed mirror; unmistakably a dressing table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, warm diffused afternoon sunlight. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-dressing-table/02.webp"
+    },
+    {
+      "model": "Dressing Table",
+      "id": "table-dressing-table",
+      "number": 3,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: oak vanity with cane drawer fronts and round upholstered stool; unmistakably a dressing table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, balanced soft daylight with warm lamps. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-dressing-table/03.webp"
+    },
+    {
+      "model": "Dressing Table",
+      "id": "table-dressing-table",
+      "number": 4,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: blackened oak vanity with tall arched mirror and bronze legs; unmistakably a dressing table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-dressing-table/04.webp"
+    },
+    {
+      "model": "Dressing Table",
+      "id": "table-dressing-table",
+      "number": 5,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: floating walnut dressing table with warm backlit circular mirror; unmistakably a dressing table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, warm diffused afternoon sunlight. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-dressing-table/05.webp"
+    },
+    {
+      "model": "Dressing Table",
+      "id": "table-dressing-table",
+      "number": 6,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: travertine top vanity with walnut drawers and curved mirror; unmistakably a dressing table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, balanced soft daylight with warm lamps. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-dressing-table/06.webp"
+    },
+    {
+      "id": "table-folding-table",
+      "model": "Folding Table",
+      "number": 1,
+      "path": "assets/images/designs/table-folding-table/01.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic catalogue image of a buildable Folding Table, variant 1: walnut oval drop-leaf dining table, one hinged leaf raised horizontally on its swing-out gateleg, other leaf lowered vertically; sturdy visible hinges and pivoting legs. The folding mechanism must be structurally plausible and clearly visible. Refined modern Indian interior with warm walnut panels, restrained antique gold and black decor, cream floor and soft golden natural daylight. Entire table and all supports visible with generous safe margins, furniture main focus, landscape 3:2 composition, three-quarter frontal camera. Premium honest joinery, realistic proportions. No people, text, logos, watermark, collage or inset.",
+      "status": "saved"
+    },
+    {
+      "id": "table-folding-table",
+      "model": "Folding Table",
+      "number": 2,
+      "path": "assets/images/designs/table-folding-table/02.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic catalogue image of a buildable Folding Table, variant 2: dark walnut rectangular folding work table, thin rigid timber top with brass hinges and two pivoting A-frame legs locked open; practical discreet metal braces. The folding mechanism must be structurally plausible and clearly visible. Refined modern Indian interior with warm walnut panels, restrained antique gold and black decor, cream floor and soft golden natural daylight. Entire table and all supports visible with generous safe margins, furniture main focus, landscape 3:2 composition, three-quarter frontal camera. Premium honest joinery, realistic proportions. No people, text, logos, watermark, collage or inset.",
+      "status": "saved"
+    },
+    {
+      "id": "table-folding-table",
+      "model": "Folding Table",
+      "number": 3,
+      "path": "assets/images/designs/table-folding-table/03.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic catalogue image of a buildable Folding Table, variant 3: light oak square folding bistro table, solid slim top and crossed timber trestle legs with visible hinge pins and locking support. The folding mechanism must be structurally plausible and clearly visible. Refined modern Indian interior with warm walnut panels, restrained antique gold and black decor, cream floor and soft golden natural daylight. Entire table and all supports visible with generous safe margins, furniture main focus, landscape 3:2 composition, three-quarter frontal camera. Premium honest joinery, realistic proportions. No people, text, logos, watermark, collage or inset.",
+      "status": "saved"
+    },
+    {
+      "id": "table-folding-table",
+      "model": "Folding Table",
+      "number": 4,
+      "path": "assets/images/designs/table-folding-table/04.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic catalogue image of a buildable Folding Table, variant 4: cream laminate folding dining table with walnut edging, one hinged side leaf folded vertically, square walnut gateleg support extended under the raised half. The folding mechanism must be structurally plausible and clearly visible. Refined modern Indian interior with warm walnut panels, restrained antique gold and black decor, cream floor and soft golden natural daylight. Entire table and all supports visible with generous safe margins, furniture main focus, landscape 3:2 composition, three-quarter frontal camera. Premium honest joinery, realistic proportions. No people, text, logos, watermark, collage or inset.",
+      "status": "saved"
+    },
+    {
+      "model": "Dressing Table",
+      "id": "table-dressing-table",
+      "number": 7,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: muted sage dressing table with brass details and oval mirror; unmistakably a dressing table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-dressing-table/07.webp"
+    },
+    {
+      "model": "Dressing Table",
+      "id": "table-dressing-table",
+      "number": 8,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: warm teak vanity with three drawers and rectangular framed mirror; unmistakably a dressing table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, warm diffused afternoon sunlight. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-dressing-table/08.webp"
+    },
+    {
+      "model": "Dressing Table",
+      "id": "table-dressing-table",
+      "number": 9,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: ivory boucle stool under compact walnut vanity with pivot mirror; unmistakably a dressing table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, balanced soft daylight with warm lamps. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-dressing-table/09.webp"
+    },
+    {
+      "model": "Dressing Table",
+      "id": "table-dressing-table",
+      "number": 10,
+      "prompt": "Use case: product-mockup. Create ONE photorealistic furniture catalogue image, landscape 3:2. Subject: dark walnut sculptural dressing table with asymmetrical mirror; unmistakably a dressing table. Entire furniture fully visible including legs, generous margins, three-quarter view, realistic physically buildable joinery, subject dominates. Warm luxury interior, cream and charcoal walls, rich walnut accents and subtle gold details, soft morning window light. Natural detailed materials, restrained styling, refined distinct silhouette. No people, letters, logos, watermark, collage or grid.",
+      "path": "assets/images/designs/table-dressing-table/10.webp"
+    },
+    {
+      "id": "table-folding-table",
+      "model": "Folding Table",
+      "number": 5,
+      "path": "assets/images/designs/table-folding-table/05.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic catalogue image of a buildable Folding Table, variant 5: matte black compact folding console-to-dining table, hinged walnut top fully open supported by black steel folding legs with locking braces. The folding mechanism must be structurally plausible and clearly visible. Refined modern Indian interior with warm walnut panels, restrained antique gold and black decor, cream floor and soft golden natural daylight. Entire table and all supports visible with generous safe margins, furniture main focus, landscape 3:2 composition, three-quarter frontal camera. Premium honest joinery, realistic proportions. No people, text, logos, watermark, collage or inset.",
+      "status": "saved"
+    },
+    {
+      "id": "table-folding-table",
+      "model": "Folding Table",
+      "number": 6,
+      "path": "assets/images/designs/table-folding-table/06.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic catalogue image of a buildable Folding Table, variant 6: walnut wall-mounted drop-leaf desk secured to the wall with two visible hinged timber brackets, shown open, compact functional furniture with whole desk visible. The folding mechanism must be structurally plausible and clearly visible. Refined modern Indian interior with warm walnut panels, restrained antique gold and black decor, cream floor and soft golden natural daylight. Entire table and all supports visible with generous safe margins, furniture main focus, landscape 3:2 composition, three-quarter frontal camera. Premium honest joinery, realistic proportions. No people, text, logos, watermark, collage or inset.",
+      "status": "saved"
+    },
+    {
+      "id": "table-folding-table",
+      "model": "Folding Table",
+      "number": 7,
+      "path": "assets/images/designs/table-folding-table/07.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic catalogue image of a buildable Folding Table, variant 7: honey oak round drop-leaf table, two curved hinged side leaves, one lowered and one raised, rounded edges, robust paired folding gatelegs. The folding mechanism must be structurally plausible and clearly visible. Refined modern Indian interior with warm walnut panels, restrained antique gold and black decor, cream floor and soft golden natural daylight. Entire table and all supports visible with generous safe margins, furniture main focus, landscape 3:2 composition, three-quarter frontal camera. Premium honest joinery, realistic proportions. No people, text, logos, watermark, collage or inset.",
+      "status": "saved"
+    },
+    {
+      "id": "table-folding-table",
+      "model": "Folding Table",
+      "number": 8,
+      "path": "assets/images/designs/table-folding-table/08.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic catalogue image of a buildable Folding Table, variant 8: espresso stained hardwood folding banquet table with rectangular slim timber top, brushed brass pivot hardware, sturdy folding trestle legs locked in use. The folding mechanism must be structurally plausible and clearly visible. Refined modern Indian interior with warm walnut panels, restrained antique gold and black decor, cream floor and soft golden natural daylight. Entire table and all supports visible with generous safe margins, furniture main focus, landscape 3:2 composition, three-quarter frontal camera. Premium honest joinery, realistic proportions. No people, text, logos, watermark, collage or inset.",
+      "status": "saved"
+    },
+    {
+      "id": "table-folding-table",
+      "model": "Folding Table",
+      "number": 9,
+      "path": "assets/images/designs/table-folding-table/09.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic catalogue image of a buildable Folding Table, variant 9: warm cream laminate folding craft table with oak edge and two hinged drop leaves, narrow rolling timber storage base and visible swivel support arms. The folding mechanism must be structurally plausible and clearly visible. Refined modern Indian interior with warm walnut panels, restrained antique gold and black decor, cream floor and soft golden natural daylight. Entire table and all supports visible with generous safe margins, furniture main focus, landscape 3:2 composition, three-quarter frontal camera. Premium honest joinery, realistic proportions. No people, text, logos, watermark, collage or inset.",
+      "status": "saved"
+    },
+    {
+      "id": "table-folding-table",
+      "model": "Folding Table",
+      "number": 10,
+      "path": "assets/images/designs/table-folding-table/10.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic catalogue image of a buildable Folding Table, variant 10: walnut folding tea table with slim rounded rectangular top, detachable locking brace and scissor leg assembly with cream upholstered chairs placed well behind it. The folding mechanism must be structurally plausible and clearly visible. Refined modern Indian interior with warm walnut panels, restrained antique gold and black decor, cream floor and soft golden natural daylight. Entire table and all supports visible with generous safe margins, furniture main focus, landscape 3:2 composition, three-quarter frontal camera. Premium honest joinery, realistic proportions. No people, text, logos, watermark, collage or inset.",
+      "status": "saved"
+    },
+    {
+      "id": "table-custom-table",
+      "model": "Custom Table",
+      "number": 1,
+      "path": "assets/images/designs/table-custom-table/01.webp",
+      "prompt": "Use case: product-mockup. One photorealistic furniture catalogue image of Custom Table, distinct variant 1: natural walnut and sculpted supports. Share the purpose, dimensions and material direction for your own table. Show clearly the functional structure appropriate to this furniture type. For storage beds show storage access; for bunk beds show sturdy guardrails and a safe ladder. Entire furniture including all legs visible with generous margins, landscape3:2, three-quarter frontal view, realistic buildable construction. Refined warm luxury interior, walnut panels, subtle gold and black accents, cream rug, soft natural golden daylight. Furniture is the main subject. No people, no text, no logo, no watermark, no collage.",
+      "status": "saved"
+    },
+    {
+      "id": "table-custom-table",
+      "model": "Custom Table",
+      "number": 2,
+      "path": "assets/images/designs/table-custom-table/02.webp",
+      "prompt": "Use case: product-mockup. One photorealistic furniture catalogue image of Custom Table, distinct variant 2: dark walnut with fluted detail. Share the purpose, dimensions and material direction for your own table. Show clearly the functional structure appropriate to this furniture type. For storage beds show storage access; for bunk beds show sturdy guardrails and a safe ladder. Entire furniture including all legs visible with generous margins, landscape3:2, three-quarter frontal view, realistic buildable construction. Refined warm luxury interior, walnut panels, subtle gold and black accents, cream rug, soft natural golden daylight. Furniture is the main subject. No people, no text, no logo, no watermark, no collage.",
+      "status": "saved"
+    },
+    {
+      "id": "table-custom-table",
+      "model": "Custom Table",
+      "number": 3,
+      "path": "assets/images/designs/table-custom-table/03.webp",
+      "prompt": "Use case: product-mockup. One photorealistic furniture catalogue image of Custom Table, distinct variant 3: light oak and tapered legs. Share the purpose, dimensions and material direction for your own table. Show clearly the functional structure appropriate to this furniture type. For storage beds show storage access; for bunk beds show sturdy guardrails and a safe ladder. Entire furniture including all legs visible with generous margins, landscape3:2, three-quarter frontal view, realistic buildable construction. Refined warm luxury interior, walnut panels, subtle gold and black accents, cream rug, soft natural golden daylight. Furniture is the main subject. No people, no text, no logo, no watermark, no collage.",
+      "status": "saved"
+    },
+    {
+      "id": "table-custom-table",
+      "model": "Custom Table",
+      "number": 4,
+      "path": "assets/images/designs/table-custom-table/04.webp",
+      "prompt": "Use case: product-mockup. One photorealistic furniture catalogue image of Custom Table, distinct variant 4: cream marble with a sculptural walnut base. Share the purpose, dimensions and material direction for your own table. Show clearly the functional structure appropriate to this furniture type. For storage beds show storage access; for bunk beds show sturdy guardrails and a safe ladder. Entire furniture including all legs visible with generous margins, landscape3:2, three-quarter frontal view, realistic buildable construction. Refined warm luxury interior, walnut panels, subtle gold and black accents, cream rug, soft natural golden daylight. Furniture is the main subject. No people, no text, no logo, no watermark, no collage.",
+      "status": "saved"
+    },
+    {
+      "id": "table-custom-table",
+      "model": "Custom Table",
+      "number": 5,
+      "path": "assets/images/designs/table-custom-table/05.webp",
+      "prompt": "Use case: product-mockup. One photorealistic furniture catalogue image of Custom Table, distinct variant 5: black marble and antique brass detail. Share the purpose, dimensions and material direction for your own table. Show clearly the functional structure appropriate to this furniture type. For storage beds show storage access; for bunk beds show sturdy guardrails and a safe ladder. Entire furniture including all legs visible with generous margins, landscape3:2, three-quarter frontal view, realistic buildable construction. Refined warm luxury interior, walnut panels, subtle gold and black accents, cream rug, soft natural golden daylight. Furniture is the main subject. No people, no text, no logo, no watermark, no collage.",
+      "status": "saved"
+    },
+    {
+      "id": "table-custom-table",
+      "model": "Custom Table",
+      "number": 6,
+      "path": "assets/images/designs/table-custom-table/06.webp",
+      "prompt": "Use case: product-mockup. One photorealistic furniture catalogue image of Custom Table, distinct variant 6: smoked glass and a sturdy timber frame. Share the purpose, dimensions and material direction for your own table. Show clearly the functional structure appropriate to this furniture type. For storage beds show storage access; for bunk beds show sturdy guardrails and a safe ladder. Entire furniture including all legs visible with generous margins, landscape3:2, three-quarter frontal view, realistic buildable construction. Refined warm luxury interior, walnut panels, subtle gold and black accents, cream rug, soft natural golden daylight. Furniture is the main subject. No people, no text, no logo, no watermark, no collage.",
+      "status": "saved"
+    },
+    {
+      "id": "table-custom-table",
+      "model": "Custom Table",
+      "number": 7,
+      "path": "assets/images/designs/table-custom-table/07.webp",
+      "prompt": "Use case: product-mockup. One photorealistic furniture catalogue image of Custom Table, distinct variant 7: honey oak with softly rounded edges. Share the purpose, dimensions and material direction for your own table. Show clearly the functional structure appropriate to this furniture type. For storage beds show storage access; for bunk beds show sturdy guardrails and a safe ladder. Entire furniture including all legs visible with generous margins, landscape3:2, three-quarter frontal view, realistic buildable construction. Refined warm luxury interior, walnut panels, subtle gold and black accents, cream rug, soft natural golden daylight. Furniture is the main subject. No people, no text, no logo, no watermark, no collage.",
+      "status": "saved"
+    },
+    {
+      "id": "table-custom-table",
+      "model": "Custom Table",
+      "number": 8,
+      "path": "assets/images/designs/table-custom-table/08.webp",
+      "prompt": "Use case: product-mockup. One photorealistic furniture catalogue image of Custom Table, distinct variant 8: dark wood with elegant metal details. Share the purpose, dimensions and material direction for your own table. Show clearly the functional structure appropriate to this furniture type. For storage beds show storage access; for bunk beds show sturdy guardrails and a safe ladder. Entire furniture including all legs visible with generous margins, landscape3:2, three-quarter frontal view, realistic buildable construction. Refined warm luxury interior, walnut panels, subtle gold and black accents, cream rug, soft natural golden daylight. Furniture is the main subject. No people, no text, no logo, no watermark, no collage.",
+      "status": "saved"
+    },
+    {
+      "id": "table-custom-table",
+      "model": "Custom Table",
+      "number": 9,
+      "path": "assets/images/designs/table-custom-table/09.webp",
+      "prompt": "Use case: product-mockup. One photorealistic furniture catalogue image of Custom Table, distinct variant 9: travertine with a timber pedestal. Share the purpose, dimensions and material direction for your own table. Show clearly the functional structure appropriate to this furniture type. For storage beds show storage access; for bunk beds show sturdy guardrails and a safe ladder. Entire furniture including all legs visible with generous margins, landscape3:2, three-quarter frontal view, realistic buildable construction. Refined warm luxury interior, walnut panels, subtle gold and black accents, cream rug, soft natural golden daylight. Furniture is the main subject. No people, no text, no logo, no watermark, no collage.",
+      "status": "saved"
+    },
+    {
+      "id": "table-custom-table",
+      "model": "Custom Table",
+      "number": 10,
+      "path": "assets/images/designs/table-custom-table/10.webp",
+      "prompt": "Use case: product-mockup. One photorealistic furniture catalogue image of Custom Table, distinct variant 10: walnut and cream accents with an asymmetric buildable shape. Share the purpose, dimensions and material direction for your own table. Show clearly the functional structure appropriate to this furniture type. For storage beds show storage access; for bunk beds show sturdy guardrails and a safe ladder. Entire furniture including all legs visible with generous margins, landscape3:2, three-quarter frontal view, realistic buildable construction. Refined warm luxury interior, walnut panels, subtle gold and black accents, cream rug, soft natural golden daylight. Furniture is the main subject. No people, no text, no logo, no watermark, no collage.",
+      "status": "saved"
     }
   ]
 }
