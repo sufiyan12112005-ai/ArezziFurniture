@@ -1,8 +1,10 @@
 User-agent: *
 Allow: /
+
 Disallow: /internal/
 Disallow: /bookfrom.html
 Disallow: /bookform.html
 Disallow: /bill-generator.html
 Disallow: /thank-you.html
+
 Sitemap: https://arezzifurniture.com/sitemap.xml
